@@ -130,7 +130,7 @@ function Hero() {
       </a>`)}
     </div>
     <h1>Dahle Apps</h1>
-    <p class="lede">Three puzzle games and a course for iPhone and iPad, made by Noah Dahle.
+    <p class="lede">Puzzle apps and a course for iPhone and iPad, made by Noah Dahle.
       <strong> Each is built on a real problem from mathematics or computer science</strong>, and none of them asks you to know it first.</p>
   </header>`;
 }
@@ -140,7 +140,7 @@ function Intro() {
     <div>
       <h3>About these apps</h3>
       <p class="pull">The best problems in mathematics fit on a napkin. Can this network be drawn without crossing lines? How few colors does this map need? Can a machine answer this question at all?</p>
-      <p>Graph theory and theoretical computer science are full of questions like these: easy to state, hard to answer, and deeply satisfying to work through. There's the stuck part, the moment the picture clicks, and the proof that something really is impossible. These apps are a way to feel that from the inside. In Bay 4, Find a Set! and Sulks, one of those questions becomes a game you play with your hands.</p>
+      <p>Graph theory and theoretical computer science are full of questions like these: easy to state, hard to answer, and deeply satisfying to work through. There's the stuck part, the moment the picture clicks, and the proof that something really is impossible. These apps are a way to feel that from the inside. In Bay 4 and Sulks, one of those questions becomes a game you play with your hands. Find a Set! brings SET, a classic card game with the same kind of mathematics hiding in it, to your phone.</p>
       <p>In the games, the mathematics stays underneath. You won't meet a theorem in Bay 4 or Sulks unless you go looking, and both explain what's really going on once you're curious.</p>
       <p>Tape isn't a game. It's a course in the theory of computation, with lessons and practice, built in the same playful style. Where a textbook would give you an exercise, Tape gives you a puzzle.</p>
       <p>No ads, no subscriptions and nothing to sign up for.</p>
@@ -200,6 +200,7 @@ function AppCard({ app, flip }) {
       <span class="under">${app.course ? "Covers" : "Underneath"}: ${app.under}</span>
       <p>${app.blurb}</p>
       <ul>${app.points.map((p) => html`<li key=${p}>${p}</li>`)}</ul>
+      ${app.credit && html`<p class="credit">${app.credit}</p>`}
       <div class="meta">
         ${app.testflight && html`<a class="btn" href=${app.testflight} target="_blank" rel="noopener">Join the TestFlight beta</a>`}
         ${app.support && html`<a class="note" href=${app.support} target="_blank" rel="noopener">Support and privacy</a>`}

@@ -30,9 +30,10 @@ window.APPS = [
     name: "Find a Set!",
     tag: "Trio matching",
     accent: "#6b4fd8",
-    blurb: "A card game about spotting trios: three cards that are all the same or all different in each feature. Quick to learn, and hard to stop playing.",
+    blurb: "An unofficial app for playing SET, the card game designed by Marsha Falco. Spot trios: three cards that are all the same or all different in each feature.",
+    credit: "SET is a card game designed by Marsha Falco and published by PlayMonster. SET is a registered trademark of its owner. Find a Set! is an unofficial fan app and is not affiliated with or endorsed by them.",
     points: [
-      "Classic, Junior, Mega, Blitz and a new Daily puzzle each day.",
+      "Classic, Junior, Mega, Blitz and a Daily puzzle each day.",
       "Play solo, against the computer, or with friends in the same room.",
       "Online games with up to four players: host a game and share the code or link.",
       "Game Center achievements and leaderboards.",

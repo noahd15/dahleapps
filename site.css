@@ -100,6 +100,7 @@ h2 {
 }
 .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
 .note { font-size: 14px; color: var(--muted); }
+.app .credit { font-size: 13px; line-height: 1.5; color: var(--muted); border-left: 2px solid var(--line); padding-left: 12px; margin: -6px 0 20px; }
 
 /* Screenshot gallery */
 .gallery { margin: 0; outline: none; }

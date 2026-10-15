@@ -66,12 +66,13 @@ window.APPS = [
   },
   {
     id: "tape",
-    under: "Computation",
+    under: "Automata, computability and complexity",
+    course: true,
     question: "What can a machine decide, and how fast?",
     name: "Tape",
     tag: "Read, write, repeat",
     accent: "#2a5fd6",
-    blurb: "A course in the theory of computation that you play. Build machines that read strings, write programs in lambda calculus, and find out which problems no computer can solve.",
+    blurb: "A course in the theory of computation, with lessons and practice that work like puzzles. Build machines that read strings, write programs in lambda calculus, and find out which problems no computer can solve.",
     points: [
       "Four units, from finite automata to P versus NP, with a puzzle in every lesson.",
       "Practice sets: machines, lambda, decidability, reductions, C and C++, and Big-O.",

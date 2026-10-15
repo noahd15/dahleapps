@@ -130,18 +130,19 @@ function Hero() {
       </a>`)}
     </div>
     <h1>Dahle Apps</h1>
-    <p class="lede">Puzzle games for iPhone and iPad, made by Noah Dahle.
-      <strong> Each one is a real mathematical problem</strong> you can play without knowing any of the mathematics.</p>
+    <p class="lede">Three puzzle games and a course for iPhone and iPad, made by Noah Dahle.
+      <strong> Each is built on a real problem from mathematics or computer science</strong>, and none of them asks you to know it first.</p>
   </header>`;
 }
 
 function Intro() {
   return html`<section class="wrap intro" aria-label="About these games">
     <div>
-      <h3>Why I make these</h3>
+      <h3>Why I make these apps</h3>
       <p class="pull">The best problems in mathematics fit on a napkin. Can this network be drawn without crossing lines? How few colors does this map need? Can a machine answer this question at all?</p>
-      <p>I work on graph theory and theoretical computer science, and I keep wishing more people got to feel what those questions are like from the inside: the stuck part, the moment the picture clicks, the proof that something really is impossible. So each game takes one of them and turns it into something you do with your hands.</p>
-      <p>The mathematics stays underneath. You won't meet a theorem in Bay 4 or Sulks unless you go looking, and both explain what's really going on once you're curious. Tape goes the other way and teaches the theory head-on, as a course you play.</p>
+      <p>I work on graph theory and theoretical computer science, and I keep wishing more people got to feel what those questions are like from the inside: the stuck part, the moment the picture clicks, the proof that something really is impossible. So I build apps around them. In Bay 4, Find a Set! and Sulks, one of those questions becomes a game you play with your hands.</p>
+      <p>In the games, the mathematics stays underneath. You won't meet a theorem in Bay 4 or Sulks unless you go looking, and both explain what's really going on once you're curious.</p>
+      <p>Tape isn't a game. It's a course in the theory of computation, with lessons and practice, built in the same playful style. Where a textbook would give you an exercise, Tape gives you a puzzle.</p>
       <p>They're made by one person, with no ads, no subscriptions and nothing to sign up for.</p>
     </div>
     <ul class="problems">
@@ -196,7 +197,7 @@ function AppCard({ app, flip }) {
         <img src=${"img/" + app.id + "-icon.png"} alt="" width="72" height="72" />
         <div><h2>${app.name}</h2><p class="tag">${app.tag}</p></div>
       </div>
-      <span class="under">Underneath: ${app.under}</span>
+      <span class="under">${app.course ? "Covers" : "Underneath"}: ${app.under}</span>
       <p>${app.blurb}</p>
       <ul>${app.points.map((p) => html`<li key=${p}>${p}</li>`)}</ul>
       <div class="meta">

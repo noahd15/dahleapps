@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play Find a Set!</title>
+<meta property="og:title" content="Play Find a Set! with me">
+<meta property="og:description" content="Tap to join my match.">
+<style>
+  :root { color-scheme: light dark; --bg: #f4efe6; --ink: #1d1b18; --muted: #6b655c; --accent: #7a3fd1; --card: #fffdf8; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #17151a; --ink: #f1ede6; --muted: #a49d93; --accent: #b48cff; --card: #221f26; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.5 -apple-system, system-ui, sans-serif; }
+  main { max-width: 480px; margin: 0 auto; padding: 48px 16px; text-align: center; }
+  h1 { font-size: 30px; margin: 0 0 8px; }
+  p { color: var(--muted); }
+  .code { display: inline-block; margin: 20px 0; padding: 14px 24px; background: var(--card); border-radius: 14px; font: 600 40px/1 ui-monospace, Menlo, monospace; letter-spacing: 8px; }
+  a.btn { display: block; margin: 12px 0; padding: 14px; border-radius: 14px; background: var(--accent); color: #fff; font-weight: 600; text-decoration: none; }
+  ol { text-align: left; color: var(--muted); padding-left: 1.2em; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Find a Set!</h1>
+  <p>You've been invited to a match.</p>
+  <div class="code" id="code">····</div>
+  <a class="btn" href="https://testflight.apple.com/join/4XuMSPgJ">Get Find a Set! on TestFlight</a>
+  <ol>
+    <li>Install Find a Set! with the button above (it needs Apple's TestFlight app).</li>
+    <li>Come back and tap the link in your message again: it opens the match.</li>
+    <li>Or open Find a Set!, tap Friends, and play with the code above.</li>
+  </ol>
+</main>
+<script>
+  var c = (new URLSearchParams(location.search).get("c") || "").replace(/\D/g, "").slice(0, 4);
+  if (c.length === 4) document.getElementById("code").textContent = c;
+</script>
+</body>
+</html>

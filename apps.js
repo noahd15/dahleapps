@@ -2,6 +2,8 @@
 window.APPS = [
   {
     id: "bay4",
+    under: "Planar graphs",
+    question: "Can this network be drawn with no crossings?",
     name: "Bay 4",
     tag: "A puzzle of tangled circuits",
     accent: "#e8792c",
@@ -23,6 +25,8 @@ window.APPS = [
   },
   {
     id: "findaset",
+    under: "Finite geometry",
+    question: "Every trio is a line in a four-dimensional space.",
     name: "Find a Set!",
     tag: "Trio matching",
     accent: "#6b4fd8",
@@ -42,6 +46,8 @@ window.APPS = [
   },
   {
     id: "sulks",
+    under: "Coloring, cycles and domination",
+    question: "How few rooms keep every rival apart?",
     name: "Sulks",
     tag: "Keep the peace",
     accent: "#2f9e5b",
@@ -60,6 +66,8 @@ window.APPS = [
   },
   {
     id: "tape",
+    under: "Computation",
+    question: "What can a machine decide, and how fast?",
     name: "Tape",
     tag: "Read, write, repeat",
     accent: "#2a5fd6",

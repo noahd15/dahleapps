@@ -55,6 +55,73 @@ function TopBar() {
   </div>`;
 }
 
+// Drifting nodes; nearby ones are joined by edges, and the pointer joins in.
+function Network() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const canvas = ref.current, ctx = canvas.getContext("2d");
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const accents = APPS.map((a) => a.accent);
+    let w = 0, h = 0, nodes = [], frame = 0, pointer = null;
+    const reach = 150;
+    function size() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth; h = window.innerHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const n = Math.round(Math.min(110, Math.max(28, (w * h) / 15000)));
+      nodes = Array.from({ length: n }, (_, i) => ({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25,
+        r: 1.6 + Math.random() * 1.8,
+        c: i % 7 === 0 ? accents[(i / 7) % accents.length | 0] : null,
+      }));
+    }
+    function draw() {
+      const css = getComputedStyle(document.documentElement);
+      const ink = css.getPropertyValue("--net").trim(), alpha = parseFloat(css.getPropertyValue("--net-a"));
+      ctx.clearRect(0, 0, w, h);
+      for (const p of nodes) {
+        if (!still) {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < -20) p.x = w + 20; if (p.x > w + 20) p.x = -20;
+          if (p.y < -20) p.y = h + 20; if (p.y > h + 20) p.y = -20;
+        }
+      }
+      const all = pointer ? nodes.concat([{ x: pointer.x, y: pointer.y, r: 0 }]) : nodes;
+      ctx.lineWidth = 1;
+      for (let i = 0; i < all.length; i++) {
+        for (let j = i + 1; j < all.length; j++) {
+          const a = all[i], b = all[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < reach) {
+            ctx.strokeStyle = `rgba(${ink}, ${alpha * (1 - d / reach)})`;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+      }
+      for (const p of nodes) {
+        ctx.fillStyle = p.c || `rgba(${ink}, ${alpha * 2.2})`;
+        ctx.globalAlpha = p.c ? .7 : 1;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.c ? p.r + 1.2 : p.r, 0, Math.PI * 2); ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+      if (!still && !document.hidden) frame = requestAnimationFrame(draw);
+    }
+    function restart() { cancelAnimationFrame(frame); draw(); }
+    const move = (e) => { pointer = { x: e.clientX, y: e.clientY }; if (still) draw(); };
+    const leave = () => { pointer = null; };
+    size(); draw();
+    window.addEventListener("resize", () => { size(); restart(); });
+    window.addEventListener("pointermove", move);
+    document.addEventListener("pointerleave", leave);
+    document.addEventListener("visibilitychange", restart);
+    const mo = new MutationObserver(restart);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => { cancelAnimationFrame(frame); mo.disconnect(); };
+  }, []);
+  return html`<canvas class="net" ref=${ref} aria-hidden="true"></canvas>`;
+}
+
 function Hero() {
   return html`<header class="wrap hero" id="top">
     <div class="icons">
@@ -64,8 +131,26 @@ function Hero() {
     </div>
     <h1>Dahle Apps</h1>
     <p class="lede">Puzzle games for iPhone and iPad, made by Noah Dahle.
-      <strong> Each one has real mathematics underneath it</strong>, but you can play them all without knowing any.</p>
+      <strong> Each one is a real mathematical problem</strong> you can play without knowing any of the mathematics.</p>
   </header>`;
+}
+
+function Intro() {
+  return html`<section class="wrap intro" aria-label="About these games">
+    <div>
+      <h3>Why I make these</h3>
+      <p class="pull">The best problems in mathematics fit on a napkin. Can this network be drawn without crossing lines? How few colors does this map need? Can a machine answer this question at all?</p>
+      <p>I work on graph theory and theoretical computer science, and I keep wishing more people got to feel what those questions are like from the inside: the stuck part, the moment the picture clicks, the proof that something really is impossible. So each game takes one of them and turns it into something you do with your hands.</p>
+      <p>The mathematics stays underneath. You won't meet a theorem in Bay 4 or Sulks unless you go looking, and both explain what's really going on once you're curious. Tape goes the other way and teaches the theory head-on, as a course you play.</p>
+      <p>They're made by one person, with no ads, no subscriptions and nothing to sign up for.</p>
+    </div>
+    <ul class="problems">
+      ${APPS.map((a) => html`<li key=${a.id}><a href=${"#" + a.id} style=${{ "--accent": a.accent }}>
+        <img src=${"img/" + a.id + "-icon.png"} alt="" />
+        <div><b>${a.name}</b><span class="u">${a.under}</span><span>${a.question}</span></div>
+      </a></li>`)}
+    </ul>
+  </section>`;
 }
 
 function Gallery({ app }) {
@@ -111,6 +196,7 @@ function AppCard({ app, flip }) {
         <img src=${"img/" + app.id + "-icon.png"} alt="" width="72" height="72" />
         <div><h2>${app.name}</h2><p class="tag">${app.tag}</p></div>
       </div>
+      <span class="under">Underneath: ${app.under}</span>
       <p>${app.blurb}</p>
       <ul>${app.points.map((p) => html`<li key=${p}>${p}</li>`)}</ul>
       <div class="meta">
@@ -126,8 +212,10 @@ function AppCard({ app, flip }) {
 
 function App() {
   return html`<${React.Fragment}>
+    <${Network} />
     <${TopBar} />
     <${Hero} />
+    <${Intro} />
     <main class="wrap">
       ${APPS.map((a, k) => html`<${AppCard} key=${a.id} app=${a} flip=${k % 2 === 1} />`)}
     </main>

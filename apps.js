@@ -64,7 +64,7 @@ window.APPS = [
       ["sulks-2.jpg", "Rooms: keep rivals apart"],
       ["sulks-3.jpg", "Ring: everyone in one circle"],
     ],
-    invite: "Sulks",
+    testflight: "https://testflight.apple.com/join/YjceU53E",
     support: "sulks/",
   },
   {

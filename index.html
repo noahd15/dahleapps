@@ -4,21 +4,215 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dahle Apps</title>
+<meta name="description" content="Puzzle games for iPhone and iPad by Noah Dahle: Bay 4, Find a Set!, Sulks and Tape.">
+<link rel="icon" href="img/bay4-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root { color-scheme: light dark; --bg: #f6f4f0; --ink: #1d1b18; --muted: #6b655c; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #161518; --ink: #efebe4; --muted: #a39c92; } }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 -apple-system, system-ui, sans-serif; }
-  main { max-width: 560px; margin: 0 auto; padding: 64px 16px; }
-  h1 { font-size: 32px; margin: 0 0 8px; }
-  p { color: var(--muted); }
+  :root {
+    --bg: #f4f1ea; --panel: #fffdf8; --ink: #17161a; --muted: #625d55; --line: #e2ddd2;
+    --grid: rgba(23, 22, 26, .05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1014; --panel: #17181e; --ink: #f1eee8; --muted: #9c978f; --line: #262830;
+      --grid: rgba(255, 255, 255, .035);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1014; --panel: #17181e; --ink: #f1eee8; --muted: #9c978f; --line: #262830;
+    --grid: rgba(255, 255, 255, .035);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.6 Inter, -apple-system, system-ui, sans-serif;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
   a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+  header { padding: 88px 0 56px; }
+  .mark { display: flex; gap: 10px; margin-bottom: 28px; }
+  .mark img { width: 44px; height: 44px; border-radius: 11px; box-shadow: 0 2px 10px rgba(0,0,0,.18); }
+  h1 {
+    font-family: "Space Grotesk", system-ui, sans-serif; font-weight: 700;
+    font-size: clamp(44px, 9vw, 88px); line-height: .95; letter-spacing: -.03em; margin: 0 0 20px;
+  }
+  .lede { font-size: clamp(18px, 2.4vw, 22px); color: var(--muted); max-width: 34em; margin: 0; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  nav.jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+  nav.jump a {
+    text-decoration: none; font-weight: 500; font-size: 15px;
+    padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel);
+  }
+  nav.jump a:hover { border-color: var(--ink); }
+
+  .app {
+    display: grid; grid-template-columns: 1fr 260px; gap: 48px; align-items: center;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 28px;
+    padding: 44px; margin-bottom: 28px; position: relative; overflow: hidden;
+  }
+  .app::before {
+    content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: var(--accent);
+  }
+  .app:nth-of-type(even) { grid-template-columns: 260px 1fr; }
+  .app:nth-of-type(even) .shot { order: -1; }
+  .top { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+  .top img { width: 72px; height: 72px; border-radius: 17px; box-shadow: 0 4px 16px rgba(0,0,0,.16); flex: none; }
+  h2 {
+    font-family: "Space Grotesk", system-ui, sans-serif; font-weight: 700;
+    font-size: 34px; line-height: 1.05; letter-spacing: -.02em; margin: 0;
+  }
+  .tag { color: var(--accent-text, var(--accent)); font-weight: 600; font-size: 15px; margin: 4px 0 0; }
+  .app p { margin: 0 0 14px; }
+  .app ul { margin: 0 0 22px; padding: 0; list-style: none; }
+  .app li { padding-left: 22px; position: relative; color: var(--muted); margin-bottom: 6px; }
+  .app li::before {
+    content: ""; position: absolute; left: 2px; top: .62em; width: 8px; height: 8px;
+    border-radius: 2px; background: var(--accent);
+  }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+  .btn {
+    display: inline-block; text-decoration: none; font-weight: 600; font-size: 15px;
+    padding: 10px 18px; border-radius: 12px; background: var(--accent); color: #fff;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .note { font-size: 14px; color: var(--muted); }
+  .shot img {
+    display: block; width: 100%; height: auto; border-radius: 30px;
+    border: 6px solid #111; box-shadow: 0 18px 40px rgba(0,0,0,.22);
+  }
+
+  .bay4 { --accent: #e8792c; }
+  .findaset { --accent: #6b4fd8; }
+  .sulks { --accent: #2f9e5b; }
+  .tape { --accent: #2a5fd6; }
+
+  footer { padding: 40px 0 72px; color: var(--muted); font-size: 15px; }
+  footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-top: 24px; }
+
+  @media (max-width: 760px) {
+    header { padding: 56px 0 36px; }
+    .app, .app:nth-of-type(even) { grid-template-columns: 1fr; gap: 28px; padding: 28px 22px; border-radius: 22px; }
+    .app:nth-of-type(even) .shot { order: 0; }
+    .shot { max-width: 230px; margin: 0 auto; }
+    h2 { font-size: 28px; }
+    .top img { width: 60px; height: 60px; border-radius: 14px; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <h1>Dahle Apps</h1>
-  <p>Small puzzle games for iPhone and iPad, made by Noah Dahle.</p>
-  <p>Contact: <a href="mailto:dahle.apps@gmail.com">dahle.apps@gmail.com</a></p>
-</main>
+<div class="wrap">
+  <header>
+    <div class="mark">
+      <img src="img/bay4-icon.png" alt="">
+      <img src="img/findaset-icon.png" alt="">
+      <img src="img/sulks-icon.png" alt="">
+      <img src="img/tape-icon.png" alt="">
+    </div>
+    <h1>Dahle Apps</h1>
+    <p class="lede">Puzzle games for iPhone and iPad, made by Noah Dahle. <strong>Each one has real mathematics underneath it</strong>, but you can play them all without knowing any.</p>
+    <nav class="jump">
+      <a href="#bay4">Bay 4</a>
+      <a href="#findaset">Find a Set!</a>
+      <a href="#sulks">Sulks</a>
+      <a href="#tape">Tape</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="app bay4" id="bay4">
+      <div>
+        <div class="top">
+          <img src="img/bay4-icon.png" alt="Bay 4 icon">
+          <div><h2>Bay 4</h2><p class="tag">A puzzle of tangled circuits</p></div>
+        </div>
+        <p>You are the new quality inspector at a fabrication lab. Every circuit blueprint crosses your desk before it is built. If its wiring can be laid flat, approve it. If it can't, reject it and prove it. The last inspector got one wrong, and the board melted through two floors.</p>
+        <ul>
+          <li>Drag nodes until no wires cross, or snip and fuse the wiring down to the paradox core.</li>
+          <li>86 blueprints, with a story told through memos from your coworkers and an autodesigner with opinions.</li>
+          <li>The Ring Sector: 43 more blueprints, 20 memos and two endings, as a one-time unlock or earned on the night shift.</li>
+        </ul>
+        <div class="meta">
+          <a class="btn" href="https://testflight.apple.com/join/R98ZNAE4">Join the TestFlight beta</a>
+          <a class="note" href="bay4/">Support and privacy</a>
+        </div>
+      </div>
+      <div class="shot"><img src="img/bay4.jpg" alt="Bay 4: a blueprint of crossing wires on the inspection desk" loading="lazy"></div>
+    </section>
+
+    <section class="app findaset" id="findaset">
+      <div>
+        <div class="top">
+          <img src="img/findaset-icon.png" alt="Find a Set! icon">
+          <div><h2>Find a Set!</h2><p class="tag">Trio matching</p></div>
+        </div>
+        <p>A card game about spotting trios: three cards that are all the same or all different in each feature. Quick to learn, and hard to stop playing.</p>
+        <ul>
+          <li>Classic, Junior, Mega, Blitz and a new Daily puzzle each day.</li>
+          <li>Play solo, against the computer, or with friends in the same room.</li>
+          <li>Online games with up to four players: host a game and share the code or link.</li>
+          <li>Game Center achievements and leaderboards.</li>
+        </ul>
+        <div class="meta">
+          <a class="btn" href="https://testflight.apple.com/join/4XuMSPgJ">Join the TestFlight beta</a>
+        </div>
+      </div>
+      <div class="shot"><img src="img/findaset.jpg" alt="Find a Set!: twelve cards in a Classic game" loading="lazy"></div>
+    </section>
+
+    <section class="app sulks" id="sulks">
+      <div>
+        <div class="top">
+          <img src="img/sulks-icon.png" alt="Sulks icon">
+          <div><h2>Sulks</h2><p class="tag">Keep the peace</p></div>
+        </div>
+        <p>A crowd of critters who can't stand each other. Find each one a place where it won't sulk. Small boards, and harder than they look.</p>
+        <ul>
+          <li>Rooms: keep rivals apart. Ring: lead everyone around one circle.</li>
+          <li>Four more ways to play, from Lookouts to Echoes, plus a Daily puzzle.</li>
+          <li>An expansion with three extra games, and a pack of new critter looks.</li>
+        </ul>
+        <div class="meta">
+          <span class="note">In TestFlight, invite only for now. <a href="mailto:dahle.apps@gmail.com?subject=Sulks%20beta">Ask to join</a></span>
+        </div>
+      </div>
+      <div class="shot"><img src="img/sulks.jpg" alt="Sulks home screen with its puzzle games" loading="lazy"></div>
+    </section>
+
+    <section class="app tape" id="tape">
+      <div>
+        <div class="top">
+          <img src="img/tape-icon.png" alt="Tape icon">
+          <div><h2>Tape</h2><p class="tag">Read, write, repeat</p></div>
+        </div>
+        <p>A course in the theory of computation that you play. Build machines that read strings, write programs in lambda calculus, and find out which problems no computer can solve.</p>
+        <ul>
+          <li>Four units, from finite automata to P versus NP, with a puzzle in every lesson.</li>
+          <li>Practice sets: machines, lambda, decidability, reductions, C and C++, and Big-O.</li>
+          <li>A daily puzzle and a sandbox for building your own machines.</li>
+        </ul>
+        <div class="meta">
+          <span class="note">In TestFlight, invite only for now. <a href="mailto:dahle.apps@gmail.com?subject=Tape%20beta">Ask to join</a></span>
+        </div>
+      </div>
+      <div class="shot"><img src="img/tape.jpg" alt="Tape home screen with the course and practice sets" loading="lazy"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="row">
+      <span>No ads, no accounts, nothing collected.</span>
+      <a href="mailto:dahle.apps@gmail.com">dahle.apps@gmail.com</a>
+    </div>
+  </footer>
+</div>
 </body>
 </html>

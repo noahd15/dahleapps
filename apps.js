@@ -1,0 +1,79 @@
+// The apps on the home page. Screenshots live in img/<id>-<n>.jpg.
+window.APPS = [
+  {
+    id: "bay4",
+    name: "Bay 4",
+    tag: "A puzzle of tangled circuits",
+    accent: "#e8792c",
+    blurb: "You are the new quality inspector at a fabrication lab. Every circuit blueprint crosses your desk before it is built. If its wiring can be laid flat, approve it. If it can't, reject it and prove it. The last inspector got one wrong, and the board melted through two floors.",
+    points: [
+      "Drag nodes until no wires cross, or snip and fuse the wiring down to the paradox core.",
+      "86 blueprints, with a story told through memos from your coworkers and an autodesigner with opinions.",
+      "The Ring Sector: 43 more blueprints, 20 memos and two endings, as a one-time unlock or earned on the night shift.",
+    ],
+    shots: [
+      ["bay4-1.jpg", "Clocking in"],
+      ["bay4-2.jpg", "Untangling a blueprint"],
+      ["bay4-3.jpg", "Proving a board can't be laid flat"],
+      ["bay4-4.jpg", "Approve the wrong one and it melts"],
+      ["bay4-5.jpg", "The Ring Sector"],
+    ],
+    testflight: "https://testflight.apple.com/join/R98ZNAE4",
+    support: "bay4/",
+  },
+  {
+    id: "findaset",
+    name: "Find a Set!",
+    tag: "Trio matching",
+    accent: "#6b4fd8",
+    blurb: "A card game about spotting trios: three cards that are all the same or all different in each feature. Quick to learn, and hard to stop playing.",
+    points: [
+      "Classic, Junior, Mega, Blitz and a new Daily puzzle each day.",
+      "Play solo, against the computer, or with friends in the same room.",
+      "Online games with up to four players: host a game and share the code or link.",
+      "Game Center achievements and leaderboards.",
+    ],
+    shots: [
+      ["findaset-1.jpg", "Home"],
+      ["findaset-2.jpg", "A Classic game"],
+      ["findaset-3.jpg", "The Daily puzzle"],
+    ],
+    testflight: "https://testflight.apple.com/join/4XuMSPgJ",
+  },
+  {
+    id: "sulks",
+    name: "Sulks",
+    tag: "Keep the peace",
+    accent: "#2f9e5b",
+    blurb: "A crowd of critters who can't stand each other. Find each one a place where it won't sulk. Small boards, and harder than they look.",
+    points: [
+      "Rooms: keep rivals apart. Ring: lead everyone around one circle.",
+      "Four more ways to play, from Lookouts to Echoes, plus a Daily puzzle.",
+      "An expansion with three extra games, and a pack of new critter looks.",
+    ],
+    shots: [
+      ["sulks-1.jpg", "Home"],
+      ["sulks-2.jpg", "Rooms: keep rivals apart"],
+      ["sulks-3.jpg", "Ring: everyone in one circle"],
+    ],
+    invite: "Sulks",
+  },
+  {
+    id: "tape",
+    name: "Tape",
+    tag: "Read, write, repeat",
+    accent: "#2a5fd6",
+    blurb: "A course in the theory of computation that you play. Build machines that read strings, write programs in lambda calculus, and find out which problems no computer can solve.",
+    points: [
+      "Four units, from finite automata to P versus NP, with a puzzle in every lesson.",
+      "Practice sets: machines, lambda, decidability, reductions, C and C++, and Big-O.",
+      "A daily puzzle and a sandbox for building your own machines.",
+    ],
+    shots: [
+      ["tape-1.jpg", "Study and Practice"],
+      ["tape-2.jpg", "Break it: find the word the machine gets wrong"],
+      ["tape-3.jpg", "Writing a lambda term"],
+    ],
+    invite: "Tape",
+  },
+];

@@ -86,7 +86,7 @@ window.APPS = [
       ["tape-2.jpg", "Break it: find the word the machine gets wrong"],
       ["tape-3.jpg", "Writing a lambda term"],
     ],
-    invite: "Tape",
+    testflight: "https://testflight.apple.com/join/n2G5nq2h",
     support: "tape/",
   },
 ];

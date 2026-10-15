@@ -45,7 +45,7 @@ function TopBar() {
   const active = useActive(APPS.map((a) => a.id));
   return html`<div class="bar">
     <div class="wrap bar-in">
-      <a class="brand" href="#top">Dahle Apps</a>
+      <a class="brand" href="#top"><img src="img/logo.svg" alt="" width="28" height="28" />Dahle Apps</a>
       <nav>
         ${APPS.map((a) => html`<a key=${a.id} href=${"#" + a.id}
           class=${active === a.id ? "on" : ""} style=${{ "--accent": a.accent }}>${a.name}</a>`)}

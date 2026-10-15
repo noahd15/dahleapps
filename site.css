@@ -34,7 +34,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   border-bottom: 1px solid var(--line);
 }
 .bar-in { display: flex; align-items: center; gap: 16px; height: 56px; }
-.brand { font: 700 18px/1 "Space Grotesk", system-ui, sans-serif; text-decoration: none; letter-spacing: -.01em; white-space: nowrap; }
+.brand { display: flex; align-items: center; gap: 9px; font: 700 18px/1 "Space Grotesk", system-ui, sans-serif; text-decoration: none; letter-spacing: -.01em; white-space: nowrap; }
+.brand img { width: 28px; height: 28px; border-radius: 7px; }
 .bar nav { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
 .bar nav::-webkit-scrollbar { display: none; }
 .bar nav a {
@@ -138,7 +139,7 @@ footer { padding: 40px 16px 72px; color: var(--muted); font-size: 15px; }
 footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-top: 24px; }
 
 @media (max-width: 760px) {
-  .brand { display: none; }
+  .brand { font-size: 0; gap: 0; }
   .bar nav { margin-left: 0; }
   .bar-in { gap: 8px; }
   .bar nav a { padding: 6px 9px; font-size: 13px; }

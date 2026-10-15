@@ -143,7 +143,7 @@ function Intro() {
       <p>Graph theory and theoretical computer science are full of questions like these: easy to state, hard to answer, and deeply satisfying to work through. There's the stuck part, the moment the picture clicks, and the proof that something really is impossible. These apps are a way to feel that from the inside. In Bay 4 and Sulks, one of those questions becomes a game you play with your hands. Find a Set! brings SET, a classic card game with the same kind of mathematics hiding in it, to your phone.</p>
       <p>In the games, the mathematics stays underneath. You won't meet a theorem in Bay 4 or Sulks unless you go looking, and both explain what's really going on once you're curious.</p>
       <p>Tape isn't a game. It's a course in the theory of computation, with lessons and practice, built in the same playful style. Where a textbook would give you an exercise, Tape gives you a puzzle.</p>
-      <p>No ads, no subscriptions and nothing to sign up for.</p>
+      <p>No ads, no subscriptions and nothing to sign up for. For now they're on iPhone and iPad only; there's no Android version yet.</p>
     </div>
     <ul class="problems">
       ${APPS.map((a) => html`<li key=${a.id}><a href=${"#" + a.id} style=${{ "--accent": a.accent }}>
@@ -223,7 +223,7 @@ function App() {
     </main>
     <footer class="wrap">
       <div class="row">
-        <span>No ads and no subscriptions.</span>
+        <span>iPhone and iPad only for now. No ads and no subscriptions.</span>
         <a href=${"mailto:" + MAIL}>${MAIL}</a>
       </div>
     </footer>

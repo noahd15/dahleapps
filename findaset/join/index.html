@@ -5,34 +5,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Play Find a Set!</title>
 <meta property="og:title" content="Play Find a Set! with me">
-<meta property="og:description" content="Tap to join my match.">
+<meta property="og:description" content="Tap to join my game.">
+<meta property="og:image" content="https://dahleapps.com/img/findaset-icon.png">
+<link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/page.css">
+<script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <style>
-  :root { color-scheme: light dark; --bg: #f4efe6; --ink: #1d1b18; --muted: #6b655c; --accent: #7a3fd1; --card: #fffdf8; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #17151a; --ink: #f1ede6; --muted: #a49d93; --accent: #b48cff; --card: #221f26; } }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.5 -apple-system, system-ui, sans-serif; }
-  main { max-width: 480px; margin: 0 auto; padding: 48px 16px; text-align: center; }
-  h1 { font-size: 30px; margin: 0 0 8px; }
-  p { color: var(--muted); }
-  .code { display: inline-block; margin: 20px 0; padding: 14px 24px; background: var(--card); border-radius: 14px; font: 600 40px/1 ui-monospace, Menlo, monospace; letter-spacing: 8px; }
-  a.btn { display: block; margin: 12px 0; padding: 14px; border-radius: 14px; background: var(--accent); color: #fff; font-weight: 600; text-decoration: none; }
-  ol { text-align: left; color: var(--muted); padding-left: 1.2em; }
+  :root { --accent: #6b4fd8; }
+  main { max-width: 480px; text-align: center; }
+  .head { flex-direction: column; gap: 14px; margin-bottom: 8px; }
+  .head img { width: 96px; height: 96px; border-radius: 22px; }
+  .lead { margin: 0 0 20px; }
+  .code {
+    display: inline-flex; gap: 10px; margin: 0 0 22px;
+  }
+  .code span {
+    width: 56px; height: 68px; display: grid; place-items: center;
+    background: var(--panel); border: 1px solid var(--line); border-bottom: 4px solid var(--accent); border-radius: 14px;
+    font: 700 36px/1 "Space Grotesk", ui-monospace, monospace; color: var(--ink);
+  }
+  .btn { display: block; padding: 14px; font-size: 16px; }
+  ol { text-align: left; padding-left: 1.3em; margin: 22px 0 0; }
+  li { margin-bottom: 8px; }
 </style>
 </head>
 <body>
+<div class="top"><a href="/"><img src="/img/logo.svg" alt="">Dahle Apps</a></div>
 <main>
-  <h1>Find a Set!</h1>
-  <p>You've been invited to a match.</p>
-  <div class="code" id="code">····</div>
-  <a class="btn" href="https://testflight.apple.com/join/4XuMSPgJ">Get Find a Set! on TestFlight</a>
+  <div class="head"><img src="/img/findaset-icon.png" alt=""><h1>Find a Set!</h1></div>
+  <p class="lead">You've been invited to a game.</p>
+  <div class="code" id="code" aria-label="Game code"><span>·</span><span>·</span><span>·</span><span>·</span></div>
+  <a class="btn" href="https://testflight.apple.com/join/4XuMSPgJ" target="_blank" rel="noopener">Get Find a Set! on TestFlight</a>
   <ol>
-    <li>Install Find a Set! with the button above (it needs Apple's TestFlight app).</li>
-    <li>Come back and tap the link in your message again: it opens the match.</li>
-    <li>Or open Find a Set!, tap Friends, and play with the code above.</li>
+    <li>Install Find a Set! with the button above. It needs Apple's TestFlight app.</li>
+    <li>Come back and tap the link in your message again. It opens the game.</li>
+    <li>Or open Find a Set!, tap Friends, and join with the code above.</li>
   </ol>
 </main>
+<footer class="small" style="text-align:center">Find a Set! is an unofficial fan app for SET, the card game designed by Marsha Falco and published by PlayMonster. It is not affiliated with or endorsed by them.</footer>
 <script>
   var c = (new URLSearchParams(location.search).get("c") || "").replace(/\D/g, "").slice(0, 4);
-  if (c.length === 4) document.getElementById("code").textContent = c;
+  if (c.length === 4) document.getElementById("code").innerHTML = c.split("").map(function (d) { return "<span>" + d + "</span>"; }).join("");
 </script>
 </body>
 </html>

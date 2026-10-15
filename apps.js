@@ -44,6 +44,7 @@ window.APPS = [
       ["findaset-3.jpg", "The Daily puzzle"],
     ],
     testflight: "https://testflight.apple.com/join/4XuMSPgJ",
+    support: "findaset/",
   },
   {
     id: "sulks",
@@ -64,6 +65,7 @@ window.APPS = [
       ["sulks-3.jpg", "Ring: everyone in one circle"],
     ],
     invite: "Sulks",
+    support: "sulks/",
   },
   {
     id: "tape",
@@ -85,5 +87,6 @@ window.APPS = [
       ["tape-3.jpg", "Writing a lambda term"],
     ],
     invite: "Tape",
+    support: "tape/",
   },
 ];

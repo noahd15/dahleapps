@@ -138,12 +138,12 @@ function Hero() {
 function Intro() {
   return html`<section class="wrap intro" aria-label="About these games">
     <div>
-      <h3>Why I make these apps</h3>
+      <h3>About these apps</h3>
       <p class="pull">The best problems in mathematics fit on a napkin. Can this network be drawn without crossing lines? How few colors does this map need? Can a machine answer this question at all?</p>
-      <p>I work on machine learning for graphs, and I love the mathematics around it: graph theory and theoretical computer science. I keep wishing more people got to feel what those questions are like from the inside: the stuck part, the moment the picture clicks, the proof that something really is impossible. So I build apps around them. In Bay 4, Find a Set! and Sulks, one of those questions becomes a game you play with your hands.</p>
+      <p>Graph theory and theoretical computer science are full of questions like these: easy to state, hard to answer, and deeply satisfying to work through. There's the stuck part, the moment the picture clicks, and the proof that something really is impossible. These apps are a way to feel that from the inside. In Bay 4, Find a Set! and Sulks, one of those questions becomes a game you play with your hands.</p>
       <p>In the games, the mathematics stays underneath. You won't meet a theorem in Bay 4 or Sulks unless you go looking, and both explain what's really going on once you're curious.</p>
       <p>Tape isn't a game. It's a course in the theory of computation, with lessons and practice, built in the same playful style. Where a textbook would give you an exercise, Tape gives you a puzzle.</p>
-      <p>They're made by one person, with no ads, no subscriptions and nothing to sign up for.</p>
+      <p>No ads, no subscriptions and nothing to sign up for.</p>
     </div>
     <ul class="problems">
       ${APPS.map((a) => html`<li key=${a.id}><a href=${"#" + a.id} style=${{ "--accent": a.accent }}>

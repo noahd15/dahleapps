@@ -131,7 +131,7 @@ function Hero() {
     </div>
     <h1>Dahle Apps</h1>
     <p class="lede">Puzzle apps, courses and a study tool for iPhone and iPad, made by Noah Dahle.
-      <strong> The games and the courses are each built on a real problem from mathematics or computer science</strong>, and none of them expects you to know it first.</p>
+      <strong> The games are built on real math problems</strong>, but you don't need to know any math to play them.</p>
   </header>`;
 }
 
@@ -139,12 +139,11 @@ function Intro() {
   return html`<section class="wrap intro" aria-label="About these games">
     <div>
       <h3>About these apps</h3>
-      <p class="pull">The best problems in mathematics fit on a napkin. Can this network be drawn without crossing lines? How few colors does this map need? Can a machine answer this question at all?</p>
-      <p>Graph theory and theoretical computer science are full of questions like these: easy to state, hard to answer, and deeply satisfying to work through. There's the stuck part, the moment the picture clicks, and the proof that something really is impossible. These apps are a way to feel that from the inside. In Bay 4 and Sulks, one of those questions becomes a game you play with your hands. Find a Set! brings SET, a classic card game with the same kind of mathematics hiding in it, to your phone.</p>
-      <p>In the games, the mathematics stays underneath. You won't meet a theorem in Bay 4 or Sulks unless you go looking, and both explain what's really going on once you're curious.</p>
-      <p>Tape isn't a game. It's a course in the theory of computation, with lessons and practice, built in the same playful style. Where a textbook would give you an exercise, Tape gives you a puzzle.</p>
-      <p>Dialed In is a study tool for exams. One AI turns your notes into cards, a second AI checks them, and your reviews are scheduled so you're ready on the day.</p>
-      <p>No ads, no subscriptions and nothing to sign up for. For now they're on iPhone and iPad only; there's no Android version yet.</p>
+      <p class="pull">Small apps for iPhone and iPad: a few puzzle games, a course, and a study tool.</p>
+      <p>Bay 4 and Sulks are puzzle games. Each one is built on a real math problem, but you don't need to know any math to play. If you get curious, the game explains what's going on. Find a Set! puts the card game SET on your phone.</p>
+      <p>Tape is a course in the theory of computation. Instead of textbook exercises, every lesson has puzzles.</p>
+      <p>Dialed In is for studying. One AI turns your notes into flashcards, a second AI checks them, and it schedules your reviews so you're ready on exam day.</p>
+      <p>No ads, no subscriptions and nothing to sign up for. iPhone and iPad only for now.</p>
     </div>
     <ul class="problems">
       ${APPS.map((a) => html`<li key=${a.id}><a href=${"#" + a.id} style=${{ "--accent": a.accent }}>

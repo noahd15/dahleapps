@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dialed In · Shared set</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/page.css">
+<script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<style>
+  :root { --accent: #b86f3e; }
+  .count { color: var(--muted); font-size: 15px; margin: 2px 0 0; }
+  .cards { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 10px; }
+  .cards li { background: #f7f0e3; color: #2a1c14; border-radius: 10px; padding: 12px 16px; border-top: 2px solid #c4573f; }
+  .cards .front { font-family: Georgia, "New York", serif; font-size: 17px; color: #2a1c14; margin: 0; }
+  .cards .opts { margin: 6px 0 0; padding-left: 20px; color: #6b5a4c; font-size: 15px; }
+  .cards .back { margin: 8px 0 0; font-size: 15px; color: #3b8452; font-weight: 600; }
+  .cards .back.hidden { color: transparent; background: #eadfcb; border-radius: 6px; cursor: pointer; user-select: none; }
+  .toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+  .error { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="top"><a href="/"><img src="/img/logo.svg" alt="">Dahle Apps</a></div>
+<main>
+  <div class="head"><img src="/img/dialedin-icon.png" alt=""><div><h1 id="title">Shared set</h1><p class="kind" id="kind">Dialed In</p></div></div>
+  <div class="card">
+    <p id="intro">Someone shared a set of study cards with you. If you have Dialed In, this link opens it in the app; otherwise you can browse the cards here.</p>
+    <div class="links">
+      <a class="btn" href="https://testflight.apple.com/join/WRBbQcuz" target="_blank" rel="noopener">Get Dialed In</a>
+      <a class="btn ghost" href="/dialedin/">About Dialed In</a>
+    </div>
+    <div class="toolbar" id="toolbar" hidden>
+      <span class="count" id="count"></span>
+      <a class="btn ghost" href="#" id="reveal">Show all answers</a>
+    </div>
+    <ul class="cards" id="cards"></ul>
+    <p class="small">The set travels inside the link itself, after the #, so it never reaches this website's server.</p>
+  </div>
+</main>
+<footer>Dahle Apps · <a href="mailto:dahle.apps@gmail.com">dahle.apps@gmail.com</a></footer>
+<script type="module">
+import { decodeSet, sides } from "/s/set.js";
+
+const $ = id => document.getElementById(id);
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+async function show() {
+  const list = $("cards");
+  list.textContent = "";
+  if (!location.hash || location.hash.length < 4) { $("intro").textContent = "This page shows study sets shared from Dialed In. The link you followed has no set in it."; return; }
+  try {
+    const set = await decodeSet(location.hash);
+    document.title = set.t + " · Dialed In";
+    $("title").textContent = set.t;
+    $("kind").textContent = set.n ? set.n + " · shared from Dialed In" : "Shared from Dialed In";
+    $("count").textContent = set.c.length + (set.c.length === 1 ? " card" : " cards");
+    $("toolbar").hidden = false;
+    for (const c of set.c.slice(0, 2000)) {
+      const s = sides(c);
+      if (!s) continue;
+      const li = el("li");
+      li.append(el("p", "front", s.front));
+      if (s.options && s.options.length) {
+        const ol = el("ol", "opts");
+        for (const o of s.options) ol.append(el("li", null, o));
+        ol.type = "A";
+        li.append(ol);
+      }
+      const back = el("p", "back hidden", s.back || "—");
+      back.title = "Tap to reveal";
+      back.addEventListener("click", () => back.classList.remove("hidden"));
+      li.append(back);
+      list.append(li);
+    }
+  } catch (e) {
+    const msg = String(e && e.message || e);
+    $("intro").textContent = msg.includes("newer") ? "This set was shared from a newer version of Dialed In. Update the app to open it."
+      : "This link is incomplete or damaged. Ask for it to be shared again.";
+    $("intro").className = "error";
+  }
+}
+$("reveal").addEventListener("click", ev => { ev.preventDefault(); document.querySelectorAll(".back.hidden").forEach(b => b.classList.remove("hidden")); });
+window.addEventListener("hashchange", show);
+show();
+</script>
+</body>
+</html>

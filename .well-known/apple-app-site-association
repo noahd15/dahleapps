@@ -4,6 +4,10 @@
       {
         "appIDs": ["V6F87F45RS.com.noahdahle.settable"],
         "components": [{ "/": "/findaset/join*", "comment": "Find a Set! match links" }]
+      },
+      {
+        "appIDs": ["V6F87F45RS.com.noahdahle.drill"],
+        "components": [{ "/": "/s/*", "comment": "Dialed In shared sets (the set is in the #fragment)" }]
       }
     ]
   }

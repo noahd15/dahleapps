@@ -12,7 +12,7 @@ window.APPS = [
     points: [
       "Drag nodes until no wires cross, or snip and fuse the wiring down to the paradox core.",
       "86 blueprints, with a story told through memos from your coworkers and an autodesigner with opinions.",
-      "The Ring Sector: 43 more blueprints, 20 memos and two endings, as a one-time unlock or earned on the night shift.",
+      "The Ring Sector: 43 more blueprints, 20 memos and two endings, as a one-time $2.99 unlock or earned free on the night shift. No ads or subscription.",
     ],
     shots: [
       ["bay4-1.jpg", "Clocking in"],
@@ -40,6 +40,7 @@ window.APPS = [
       "Play solo, against the computer, or with friends in the same room.",
       "Online games with up to four players: host a game and share the code or link.",
       "Game Center achievements and leaderboards.",
+      "Free, with no in-app purchases or ads.",
     ],
     shots: [
       ["findaset-1.jpg", "Home"],
@@ -63,6 +64,7 @@ window.APPS = [
       "Rooms: keep rivals apart. Ring: lead everyone around one circle.",
       "Four more ways to play, from Lookouts to Echoes, plus a Daily puzzle.",
       "An expansion with three extra games, and a pack of new critter looks.",
+      "Free to play. The expansion ($2.99) and critter looks ($1.99) are one-time extras, with no ads or subscription.",
     ],
     shots: [
       ["sulks-1.jpg", "Home"],
@@ -87,6 +89,7 @@ window.APPS = [
       "Four units, from finite automata to P versus NP, with a puzzle in every lesson.",
       "Practice sets: machines, lambda, decidability, reductions, C and C++, and Big-O.",
       "A daily puzzle and a sandbox for building your own machines.",
+      "Units 1 and 2 and every lesson are free. The full course is a one-time $4.99, with no ads or subscription.",
     ],
     shots: [
       ["tape-1.jpg", "Study and Practice"],
@@ -112,6 +115,7 @@ window.APPS = [
       "Every AI-written card is checked against your notes, with a page reference.",
       "Flashcards, Learn, Test, Match and scored practice exams, timed to your exam dates.",
       "Runs on Apple Intelligence on your iPhone, or with your own Claude or OpenAI key.",
+      "Studying is free. Pro, for AI writing and checking, is a one-time $9.99, with no ads or subscription.",
     ],
     shots: [
       ["dialedin-1.jpg", "What's due today, by course"],

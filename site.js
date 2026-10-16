@@ -154,6 +154,24 @@ function Intro() {
   </section>`;
 }
 
+// When each app is planned to reach the App Store, in order.
+function Schedule() {
+  const planned = APPS.filter((a) => a.release).sort((a, b) => a.releaseOrder - b.releaseOrder);
+  if (!planned.length) return null;
+  return html`<section class="wrap schedule" id="schedule" aria-label="Release schedule">
+    <h3>Release schedule</h3>
+    <p class="note">Planned App Store dates. Until then, every app is open to try on TestFlight.</p>
+    <ol>
+      ${planned.map((a) => html`<li key=${a.id} style=${{ "--accent": a.accent }}>
+        <a href=${"#" + a.id}>
+          <img src=${"img/" + a.id + "-icon.png"} alt="" width="44" height="44" />
+          <div><b>${a.name}</b><span>${a.release}</span></div>
+        </a>
+      </li>`)}
+    </ol>
+  </section>`;
+}
+
 function Gallery({ app }) {
   const [i, setI] = useState(0);
   const touch = useRef(null);
@@ -198,6 +216,7 @@ function AppCard({ app, flip }) {
         <div><h2>${app.name}</h2><p class="tag">${app.tag}</p></div>
       </div>
       <span class="under">${app.course ? "Covers" : "Underneath"}: ${app.under}</span>
+      ${app.release && html`<span class="when">On the App Store: ${app.release.replace(/ 20\d\d$/, "")}</span>`}
       <p>${app.blurb}</p>
       <ul>${app.points.map((p) => html`<li key=${p}>${p}</li>`)}</ul>
       ${app.credit && html`<p class="credit">${app.credit}</p>`}
@@ -213,11 +232,17 @@ function AppCard({ app, flip }) {
 }
 
 function App() {
+  // The page is drawn after load, so the browser can't find #bay4 and friends itself.
+  useEffect(() => {
+    const el = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (el) el.scrollIntoView();
+  }, []);
   return html`<${React.Fragment}>
     <${Network} />
     <${TopBar} />
     <${Hero} />
     <${Intro} />
+    <${Schedule} />
     <main class="wrap">
       ${APPS.map((a, k) => html`<${AppCard} key=${a.id} app=${a} flip=${k % 2 === 1} />`)}
     </main>

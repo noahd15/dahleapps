@@ -1,4 +1,5 @@
 // The apps on the home page. Screenshots live in img/<id>-<n>.jpg.
+// release: when it's planned for the App Store; releaseOrder sorts the schedule.
 window.APPS = [
   {
     id: "bay4",
@@ -20,6 +21,8 @@ window.APPS = [
       ["bay4-4.jpg", "Approve the wrong one and it melts"],
       ["bay4-5.jpg", "The Ring Sector"],
     ],
+    release: "Early December 2026",
+    releaseOrder: 3,
     testflight: "https://testflight.apple.com/join/R98ZNAE4",
     support: "bay4/",
   },
@@ -43,6 +46,8 @@ window.APPS = [
       ["findaset-2.jpg", "A Classic game"],
       ["findaset-3.jpg", "The Daily puzzle"],
     ],
+    release: "Late October 2026",
+    releaseOrder: 1,
     testflight: "https://testflight.apple.com/join/4XuMSPgJ",
     support: "findaset/",
   },
@@ -64,6 +69,8 @@ window.APPS = [
       ["sulks-2.jpg", "Rooms: keep rivals apart"],
       ["sulks-3.jpg", "Ring: everyone in one circle"],
     ],
+    release: "Mid-November 2026",
+    releaseOrder: 2,
     testflight: "https://testflight.apple.com/join/YjceU53E",
     support: "sulks/",
   },
@@ -86,6 +93,8 @@ window.APPS = [
       ["tape-2.jpg", "Break it: find the word the machine gets wrong"],
       ["tape-3.jpg", "Writing a lambda term"],
     ],
+    release: "January 2027",
+    releaseOrder: 4,
     testflight: "https://testflight.apple.com/join/n2G5nq2h",
     support: "tape/",
   },

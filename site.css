@@ -194,7 +194,7 @@ footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; ga
 .schedule { padding-bottom: 48px; }
 .schedule h3 { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
 .schedule .note { margin: 0 0 18px; }
-.schedule ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; counter-reset: step; }
+.schedule ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; counter-reset: step; }
 .schedule li { counter-increment: step; }
 .schedule a {
   display: flex; align-items: center; gap: 12px; height: 100%; box-sizing: border-box;

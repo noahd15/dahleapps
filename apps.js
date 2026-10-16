@@ -89,7 +89,7 @@ window.APPS = [
       "Four units, from finite automata to P versus NP, with a puzzle in every lesson.",
       "Practice sets: machines, lambda, decidability, reductions, C and C++, and Big-O.",
       "A daily puzzle and a sandbox for building your own machines.",
-      "Units 1 and 2 and every lesson are free. The full course is a one-time $4.99, with no ads or subscription.",
+      "Free: every lesson and every puzzle in Units 1 and 2, plus the daily puzzle and sandbox. A one-time $4.99 unlocks the puzzles in Units 3 and 4 and the Practice sets. No ads or subscription.",
     ],
     shots: [
       ["tape-1.jpg", "Study and Practice"],

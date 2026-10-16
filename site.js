@@ -143,7 +143,7 @@ function Intro() {
       <p>Graph theory and theoretical computer science are full of questions like these: easy to state, hard to answer, and deeply satisfying to work through. There's the stuck part, the moment the picture clicks, and the proof that something really is impossible. These apps are a way to feel that from the inside. In Bay 4 and Sulks, one of those questions becomes a game you play with your hands. Find a Set! brings SET, a classic card game with the same kind of mathematics hiding in it, to your phone.</p>
       <p>In the games, the mathematics stays underneath. You won't meet a theorem in Bay 4 or Sulks unless you go looking, and both explain what's really going on once you're curious.</p>
       <p>Tape isn't a game. It's a course in the theory of computation, with lessons and practice, built in the same playful style. Where a textbook would give you an exercise, Tape gives you a puzzle.</p>
-      <p>Dialed In is a study tool for exams. It turns your notes into cards, has a second AI check them, and schedules reviews so you're ready on the day.</p>
+      <p>Dialed In is a study tool for exams. One AI turns your notes into cards, a second AI checks them, and your reviews are scheduled so you're ready on the day.</p>
       <p>No ads, no subscriptions and nothing to sign up for. For now they're on iPhone and iPad only; there's no Android version yet.</p>
     </div>
     <ul class="problems">

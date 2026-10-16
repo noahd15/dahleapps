@@ -106,7 +106,7 @@ window.APPS = [
     name: "Dialed In",
     tag: "AI-assisted studying",
     accent: "#b86f3e",
-    blurb: "Turn your slides, notes and practice exams into study cards. A second AI checks every answer against your notes, and your reviews are spaced so everything comes up again before the exam.",
+    blurb: "An AI turns your slides, notes and practice exams into study cards. A second AI checks every answer against your notes, and your reviews are spaced so everything comes up again before the exam.",
     points: [
       "Import PDFs, photos of notes, pasted text, or a Quizlet or Anki deck.",
       "Every AI-written card is checked against your notes, with a page reference.",

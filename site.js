@@ -131,7 +131,7 @@ function Hero() {
     </div>
     <h1>Dahle Apps</h1>
     <p class="lede">Puzzle apps, a course and a study tool for iPhone and iPad, made by Noah Dahle.
-      <strong> Each is built on a real problem from mathematics or computer science</strong>, and none of them asks you to know it first.</p>
+      <strong> The games and the course are each built on a real problem from mathematics or computer science</strong>, and none of them asks you to know it first.</p>
   </header>`;
 }
 
@@ -216,7 +216,7 @@ function AppCard({ app, flip }) {
         <img src=${"img/" + app.id + "-icon.png"} alt="" width="72" height="72" />
         <div><h2>${app.name}</h2><p class="tag">${app.tag}</p></div>
       </div>
-      <span class="under">${app.course ? "Covers" : app.tool ? "Built on" : "Underneath"}: ${app.under}</span>
+      <span class="under">${app.tool ? app.under : (app.course ? "Covers" : "Underneath") + ": " + app.under}</span>
       ${app.release && html`<span class="when">On the App Store: ${app.release.replace(/ 20\d\d$/, "")}</span>`}
       <p>${app.blurb}</p>
       <ul>${app.points.map((p) => html`<li key=${p}>${p}</li>`)}</ul>

@@ -100,9 +100,9 @@ window.APPS = [
   },
   {
     id: "dialedin",
-    under: "Spaced repetition",
+    under: "Study app",
     tool: true,
-    question: "What should you study today, and is that card even right?",
+    question: "Turns your notes into study cards for your next exam.",
     name: "Dialed In",
     tag: "AI-assisted studying",
     accent: "#b86f3e",

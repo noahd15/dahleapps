@@ -130,8 +130,8 @@ function Hero() {
       </a>`)}
     </div>
     <h1>Dahle Apps</h1>
-    <p class="lede">Puzzle apps, a course and a study tool for iPhone and iPad, made by Noah Dahle.
-      <strong> The games and the course are each built on a real problem from mathematics or computer science</strong>, and none of them asks you to know it first.</p>
+    <p class="lede">Puzzle apps, courses and a study tool for iPhone and iPad, made by Noah Dahle.
+      <strong> The games and the courses are each built on a real problem from mathematics or computer science</strong>, and none of them asks you to know it first.</p>
   </header>`;
 }
 

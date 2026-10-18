@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Commuting Squares · Bratteli Diagrams</title>
+<meta name="description" content="Enter a square of finite-dimensional matrix algebras A ⊂ B, C ⊂ D with its four inclusion matrices, and get the Bratteli diagram of the square, the commuting-square checks, and its extension by the basic construction.">
+<link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/page.css">
+<script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<style>
+  :root { --accent: #7a4fd0; --edge: #8a847a; --vert: #1f8a80; --err: #b3261e; --ok: #1d7a3a; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --accent: #a585ee; --edge: #7d776f; --vert: #5cc8bc; --err: #f2b8b5; --ok: #8fd6a2; } }
+  :root[data-theme="dark"] { --accent: #a585ee; --edge: #7d776f; --vert: #5cc8bc; --err: #f2b8b5; --ok: #8fd6a2; }
+  .top, main, footer { max-width: 880px; }
+  label { display: block; font-weight: 600; font-size: 15px; color: var(--ink); margin: 16px 0 6px; }
+  label span { font-weight: 400; color: var(--muted); }
+  input[type=text], textarea, select { width: 100%; font: 16px/1.4 ui-monospace, "SF Mono", Menlo, monospace; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; }
+  textarea { min-height: 84px; resize: vertical; }
+  input:focus, textarea:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
+  @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
+  .row { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; margin-top: 14px; font-size: 15px; color: var(--muted); }
+  .row label { display: inline-flex; gap: 6px; align-items: center; margin: 0; font-weight: 400; color: var(--muted); }
+  .row select { width: auto; }
+  .presets { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 4px; }
+  .presets button, .btn { cursor: pointer; border: 0; font: 600 14px Inter, system-ui, sans-serif; }
+  .presets button { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
+  .presets button:hover { border-color: var(--accent); }
+  .err { color: var(--err); font-weight: 600; }
+  .note { font-size: 14px; }
+  .sq { display: inline-grid; grid-template-columns: repeat(3, 64px); grid-auto-rows: 34px; align-items: center; justify-items: center; font: 700 19px "Space Grotesk", system-ui, sans-serif; color: var(--ink); margin: 4px 0 18px; }
+  .sq i { font: italic 600 14px Inter, system-ui, sans-serif; color: var(--muted); }
+  .diagram { overflow-x: auto; margin: 10px -8px 0; padding: 0 8px; }
+  .diagram svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+  .out p { margin: 6px 0; }
+  .alg { color: var(--ink); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 15px; }
+  table.mat { border-collapse: collapse; font: 14px ui-monospace, Menlo, monospace; color: var(--ink); margin: 4px 0 10px; }
+  table.mat td { padding: 2px 9px; text-align: right; }
+  table.mat td:first-child { border-left: 2px solid var(--muted); }
+  table.mat td:last-child { border-right: 2px solid var(--muted); }
+  .mats { display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: flex-start; }
+  .mats div { font-size: 14px; color: var(--muted); }
+  .check { margin: 14px 0 4px; font-weight: 600; color: var(--ink); }
+  .check .ok { color: var(--ok); } .check .bad { color: var(--err); }
+  .key { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--muted); margin-top: 6px; }
+  .key svg { vertical-align: middle; margin-right: 6px; }
+  details { margin-top: 26px; }
+  summary { cursor: pointer; font: 700 17px "Space Grotesk", system-ui, sans-serif; color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="top"><a href="/"><img src="/img/logo.svg" alt="">Dahle Apps</a></div>
+<main>
+  <h1>Commuting squares</h1>
+  <p class="kind">Bratteli diagrams for squares of matrix algebras</p>
+  <p>Give four finite-dimensional algebras in a square and the four inclusion matrices. The page draws the Bratteli diagram of the square, checks the path-counting conditions a commuting square has to satisfy, and can extend the square to the right with the basic construction. For a single inclusion, see <a href="/bratteli/">the basic construction page</a>.</p>
+  <div class="sq" aria-label="A ⊂ B by G, A ⊂ C by H, B ⊂ D by L, C ⊂ D by K">
+    <span>C</span><span>⊂ <i>K</i></span><span>D</span>
+    <span>∪ <i>H</i></span><span></span><span>∪ <i>L</i></span>
+    <span>A</span><span>⊂ <i>G</i></span><span>B</span>
+  </div>
+
+  <div class="card">
+    <div class="presets" id="presets"></div>
+    <div class="grid">
+      <div><label for="c">C <span>· top left</span></label><input type="text" id="c" spellcheck="false" autocomplete="off"></div>
+      <div><label for="d">D <span>· top right, blank to compute</span></label><input type="text" id="d" spellcheck="false" autocomplete="off"></div>
+      <div><label for="a">A <span>· bottom left, e.g. 2, 1 or M₂ ⊕ ℂ</span></label><input type="text" id="a" spellcheck="false" autocomplete="off"></div>
+      <div><label for="b">B <span>· bottom right, blank to compute</span></label><input type="text" id="b" spellcheck="false" autocomplete="off"></div>
+    </div>
+    <div class="grid">
+      <div><label for="mK">K <span>· C ⊂ D</span></label><textarea id="mK" spellcheck="false"></textarea></div>
+      <div><label for="mL">L <span>· B ⊂ D</span></label><textarea id="mL" spellcheck="false"></textarea></div>
+      <div><label for="mH">H <span>· A ⊂ C</span></label><textarea id="mH" spellcheck="false"></textarea></div>
+      <div><label for="mG">G <span>· A ⊂ B</span></label><textarea id="mG" spellcheck="false"></textarea></div>
+    </div>
+    <p class="note">Each matrix has one row per summand of the smaller algebra and one column per summand of the larger one, so b = Gᵀa. Rows go on separate lines. A matrix whose shape only fits the other way round is read transposed.</p>
+    <div class="row">
+      <label>Extend with the basic construction <select id="depth">
+        <option value="0">no</option><option value="1">once</option><option value="2">twice</option><option value="3">three times</option>
+      </select></label>
+    </div>
+    <div class="out" id="out"></div>
+    <div class="links" id="actions" hidden>
+      <button class="btn" id="svgdl">Download SVG</button>
+      <button class="btn ghost" id="copy">Copy link</button>
+    </div>
+  </div>
+
+  <details>
+    <summary>How it works</summary>
+    <p>A square of inclusions A ⊂ B ⊂ D, A ⊂ C ⊂ D is described by four matrices: G for A ⊂ B, H for A ⊂ C, L for B ⊂ D and K for C ⊂ D. Both routes from A to D have to embed A the same way, so the number of paths from a summand of A to a summand of D through B equals the number through C: <strong>GL = HK</strong>. The page needs this to draw anything.</p>
+    <p>The square is a commuting square when E<sub>B</sub>E<sub>C</sub> = E<sub>A</sub> for the trace-preserving conditional expectations in D. If it is also nondegenerate (span BC = D), the basic construction gives a new commuting square B ⊂ B<sub>1</sub>, D ⊂ D<sub>1</sub> = ⟨D, e<sub>C</sub>⟩, and the inclusion B<sub>1</sub> ⊂ D<sub>1</sub> has matrix H again. For that square to fit together, paths from B to C through A have to match paths through D: <strong>GᵀH = LKᵀ</strong>. The page checks this too, and only extends the square when it holds. Going further, the vertical matrices alternate H, L, H, … and the horizontal ones alternate G, Gᵀ, … and K, Kᵀ, …</p>
+    <p>The matrices can't prove the square commutes, because that depends on how B and C sit inside D and not just on their sizes. Take A = ℂ and D = M₂, with B and C both the diagonal ℂ². All four matrices are the same whether C is the diagonal in the standard basis or in a basis unbiased to it. Only the unbiased choice is a commuting square: if B = C, then E<sub>B</sub>E<sub>C</sub> = E<sub>B</sub> ≠ E<sub>A</sub>. So a pass here means the Bratteli data is consistent with a nondegenerate commuting square. It does not mean the square is one. In general that comes down to whether a biunitary connection exists on the diagram.</p>
+  </details>
+</main>
+<footer>Dahle Apps · <a href="mailto:dahle.apps@gmail.com">dahle.apps@gmail.com</a></footer>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const SUB = "₀₁₂₃₄₅₆₇₈₉";
+  const sub = n => String(n).replace(/\d/g, d => SUB[d]);
+  const algName = dims => dims.map(d => d === 1n ? "ℂ" : "M" + sub(d)).join(" ⊕ ");
+  const botName = k => k === 0 ? "A" : k === 1 ? "B" : "B" + sub(k - 1);
+  const topName = k => k === 0 ? "C" : k === 1 ? "D" : "D" + sub(k - 1);
+  const FIELDS = ["a", "b", "c", "d", "mG", "mH", "mK", "mL"];
+
+  const PRESETS = [
+    { name: "M₂ ⊗ M₂", a: "1", b: "2", c: "2", d: "4", mG: "2", mH: "2", mK: "2", mL: "2" },
+    { name: "Two MASAs of M₂", a: "1", b: "1, 1", c: "1, 1", d: "2", mG: "1 1", mH: "1 1", mK: "1\n1", mL: "1\n1" },
+    { name: "Two MASAs of M₃", a: "1", b: "1, 1, 1", c: "1, 1, 1", d: "3", mG: "1 1 1", mH: "1 1 1", mK: "1\n1\n1", mL: "1\n1\n1" },
+    { name: "(ℂ² ⊂ M₂) ⊗ ℂ²", a: "1, 1", b: "2", c: "1, 1, 1, 1", d: "2, 2", mG: "1\n1", mH: "1 1 0 0\n0 0 1 1", mK: "1 0\n0 1\n1 0\n0 1", mL: "1 1" },
+    { name: "Not commuting", a: "1", b: "1, 1", c: "1, 1", d: "1, 1", mG: "1 1", mH: "1 1", mK: "1 0\n0 1", mL: "1 0\n0 1" },
+  ];
+
+  function parseAlg(s, name) {
+    let t = s.replace(/M_?\{?(\d+)\}?\s*(\(\s*(C|ℂ)\s*\))?/g, " $1 ").replace(/ℂ|\bC\b/g, " 1 ");
+    if (t.replace(/[\d\s,;⊕+()\[\]]/g, "")) throw new Error("Couldn't read " + name + " = \"" + s.trim() + "\". Use sizes like 2, 1 or M₂ ⊕ ℂ.");
+    const dims = t.split(/[^\d]+/).filter(Boolean).map(x => BigInt(x));
+    if (dims.some(d => d === 0n)) throw new Error("Summand sizes in " + name + " must be at least 1.");
+    return dims;
+  }
+
+  function parseMatrix(s, name) {
+    const rows = s.replace(/[\[\]()]/g, " ").split(/\n|;/).map(r => r.trim()).filter(Boolean)
+      .map(r => r.split(/[\s,]+/).filter(Boolean));
+    if (!rows.length) throw new Error("Enter the matrix " + name + ".");
+    for (const r of rows) for (const x of r) if (!/^\d+$/.test(x)) throw new Error("Entries of " + name + " must be non-negative integers (found \"" + x + "\").");
+    if (rows.some(r => r.length !== rows[0].length)) throw new Error("Every row of " + name + " needs the same number of entries.");
+    return rows.map(r => r.map(Number));
+  }
+
+  const T = M => M[0].map((_, j) => M.map(r => r[j]));
+  const mul = (X, Y) => X.map(r => Y[0].map((_, j) => r.reduce((s, x, k) => s + x * Y[k][j], 0)));
+  const eq = (X, Y) => X.length === Y.length && X.every((r, i) => r.every((x, j) => x === Y[i][j]));
+  const push = (M, lower) => M[0].map((_, j) => M.reduce((s, r, i) => s + BigInt(r[j]) * lower[i], 0n));
+  const sameDims = (x, y) => x.length === y.length && x.every((v, i) => v === y[i]);
+
+  function normSq(G) {
+    const GtG = mul(T(G), G);
+    let v = GtG.map(() => 1), lam = 0;
+    for (let it = 0; it < 2000; it++) {
+      const w = GtG.map(r => r.reduce((s, x, k) => s + x * v[k], 0));
+      const n = Math.hypot(...w);
+      if (!n) return 0;
+      v = w.map(x => x / n);
+      if (Math.abs(n - lam) < 1e-13 * n) { lam = n; break; }
+      lam = n;
+    }
+    return lam;
+  }
+
+  // Read matrix `name` as an inclusion lower ⊂ upper; upperLen may be null when the upper algebra was left blank.
+  function orient(M, name, lowerName, upperName, lowerLen, upperLen, notes) {
+    const fits = X => X.length === lowerLen && (upperLen === null || X[0].length === upperLen);
+    if (fits(M)) return M;
+    if (fits(T(M))) { notes.push(name + " was read transposed to fit its shape."); return T(M); }
+    throw new Error(name + " is " + M.length + "×" + M[0].length + ", but " + lowerName + " has " + lowerLen + " summand" + (lowerLen > 1 ? "s" : "") +
+      (upperLen !== null ? " and " + upperName + " has " + upperLen : "") + ".");
+  }
+
+  function include(M, name, lower, lowerName, upperIn, upperName) {
+    M.forEach((r, i) => { if (r.every(x => !x)) throw new Error("Row " + (i + 1) + " of " + name + " is zero: summand " + (i + 1) + " of " + lowerName + " would map to 0 in " + upperName + "."); });
+    const up = push(M, lower);
+    const z = up.findIndex(x => x === 0n);
+    if (z >= 0) throw new Error("Summand " + (z + 1) + " of " + upperName + " gets nothing from " + lowerName + " under " + name + ", so that inclusion isn't unital.");
+    if (upperIn && !sameDims(up, upperIn)) throw new Error("Under " + name + ", the unit of " + lowerName + " lands in " + algName(up) + ", not " + algName(upperIn) + " as entered for " + upperName + ".");
+    return up;
+  }
+
+  function compute() {
+    const notes = [];
+    const get = id => $(id).value.trim();
+    const a = parseAlg(get("a"), "A");
+    if (!a.length) throw new Error("Enter the summand sizes of A.");
+    if (!get("c")) throw new Error("Enter the summand sizes of C.");
+    const c0 = parseAlg(get("c"), "C");
+    const bIn = get("b") ? parseAlg(get("b"), "B") : null;
+    const dIn = get("d") ? parseAlg(get("d"), "D") : null;
+
+    const G = orient(parseMatrix(get("mG"), "G"), "G", "A", "B", a.length, bIn ? bIn.length : null, notes);
+    const b = include(G, "G", a, "A", bIn, "B");
+    const H = orient(parseMatrix(get("mH"), "H"), "H", "A", "C", a.length, c0.length, notes);
+    const c = include(H, "H", a, "A", c0, "C");
+    const L = orient(parseMatrix(get("mL"), "L"), "L", "B", "D", b.length, dIn ? dIn.length : null, notes);
+    const d = include(L, "L", b, "B", dIn, "D");
+    const K = orient(parseMatrix(get("mK"), "K"), "K", "C", "D", c.length, d.length, notes);
+    include(K, "K", c, "C", d, "D");
+    if (!bIn) notes.push("B computed from A and G.");
+    if (!dIn) notes.push("D computed from B and L.");
+
+    const GL = mul(G, L), HK = mul(H, K);
+    if (!eq(GL, HK)) throw { square: true, G, H, K, L, GL, HK };
+    const GtH = mul(T(G), H), LKt = mul(L, T(K));
+    const sym = eq(GtH, LKt);
+
+    let depth = +$("depth").value;
+    if (depth && !sym) { notes.push("The square can't be extended because GᵀH ≠ LKᵀ."); depth = 0; }
+    const bot = [a, b], top = [c, d], hBot = [G], hTop = [K], vert = [H, L];
+    for (let k = 0; k < depth; k++) {
+      const Mb = k % 2 === 0 ? T(G) : G, Mt = k % 2 === 0 ? T(K) : K, V = k % 2 === 0 ? H : L;
+      hBot.push(Mb); hTop.push(Mt); vert.push(V);
+      bot.push(push(Mb, bot[bot.length - 1]));
+      top.push(push(Mt, top[top.length - 1]));
+      if (!sameDims(push(V, bot[bot.length - 1]), top[top.length - 1])) throw new Error("The extended square doesn't fit together. This shouldn't happen when GᵀH = LKᵀ; please report it.");
+    }
+    return { G, H, K, L, GL, HK, GtH, LKt, sym, bot, top, hBot, hTop, vert, notes };
+  }
+
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const matHTML = M => "<table class=mat>" + M.map(r => "<tr>" + r.map(x => "<td>" + x + "</td>").join("") + "</tr>").join("") + "</table>";
+  const matName = (base, k) => k % 2 === 0 ? base : base + "ᵀ";
+
+  function drawSVG(res) {
+    const { bot, top, hBot, hTop, vert } = res;
+    const css = getComputedStyle(document.documentElement);
+    const col = v => css.getPropertyValue(v).trim();
+    const cols = bot.length, all = [...bot, ...top];
+    const radius = d => Math.max(16, 7 + String(d).length * 4.6);
+    const maxR = Math.max(...all.flat().map(radius));
+    const nMax = Math.max(...all.map(l => l.length));
+    const step = 2 * maxR + 12, ext = (nMax - 1) * step / Math.SQRT2;
+    const colGap = ext + 2 * maxR + 120, rowGap = ext + 2 * maxR + 110;
+    const pad = 30, labelSpace = 30;
+    const x0 = pad + maxR + ext / 2, yTop = pad + labelSpace + maxR + ext / 2, yBot = yTop + rowGap;
+    const W = 2 * x0 + (cols - 1) * colGap, Ht = yBot + ext / 2 + maxR + labelSpace + pad;
+    const place = (l, cx, cy) => l.map((_, i) => { const t = (i - (l.length - 1) / 2) * step; return [cx + t / Math.SQRT2, cy - t / Math.SQRT2]; });
+    const pBot = bot.map((l, k) => place(l, x0 + k * colGap, yBot));
+    const pTop = top.map((l, k) => place(l, x0 + k * colGap, yTop));
+
+    let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${Ht}" width="${W}" height="${Ht}" font-family="Inter, system-ui, sans-serif" role="img" aria-label="Bratteli diagram of the square">`;
+    s += `<rect width="${W}" height="${Ht}" fill="${col("--panel")}"/>`;
+    const edges = (M, P, Q, stroke, dash) => {
+      M.forEach((r, i) => r.forEach((mult, j) => {
+        if (!mult) return;
+        const [x1, y1] = P[i], [x2, y2] = Q[j];
+        const dx = x2 - x1, dy = y2 - y1, Ln = Math.hypot(dx, dy), px = -dy / Ln, py = dx / Ln, mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+        const da = dash ? ' stroke-dasharray="6 4"' : "";
+        if (mult <= 4) {
+          for (let t = 0; t < mult; t++) {
+            const o = (t - (mult - 1) / 2) * 12;
+            s += `<path d="M${x1} ${y1} Q${mx + px * o} ${my + py * o} ${x2} ${y2}" fill="none" stroke="${stroke}" stroke-width="1.6"${da}/>`;
+          }
+        } else {
+          s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${stroke}" stroke-width="3"${da}/>`;
+          const lbl = "×" + mult, w = 9 + lbl.length * 7.5;
+          s += `<rect x="${mx - w / 2}" y="${my - 10}" width="${w}" height="20" rx="6" fill="${col("--panel")}" stroke="${stroke}"/>`;
+          s += `<text x="${mx}" y="${my + 4.5}" font-size="13" font-weight="600" text-anchor="middle" fill="${col("--ink")}">${lbl}</text>`;
+        }
+      }));
+    };
+    const tag = (x, y, text, color) => {
+      const w = 12 + text.length * 8;
+      s += `<rect x="${x - w / 2}" y="${y - 11}" width="${w}" height="22" rx="7" fill="${col("--panel")}" stroke="${color}"/>`;
+      s += `<text x="${x}" y="${y + 5}" font-size="14" font-style="italic" font-weight="700" text-anchor="middle" fill="${color}">${text}</text>`;
+    };
+    hBot.forEach((M, k) => edges(M, pBot[k], pBot[k + 1], col("--edge"), false));
+    hTop.forEach((M, k) => edges(M, pTop[k], pTop[k + 1], col("--edge"), false));
+    vert.forEach((M, k) => edges(M, pBot[k], pTop[k], col("--vert"), true));
+    hBot.forEach((_, k) => tag(x0 + (k + .5) * colGap, yBot + 22, matName("G", k), col("--edge")));
+    hTop.forEach((_, k) => tag(x0 + (k + .5) * colGap, yTop - 22, matName("K", k), col("--edge")));
+    vert.forEach((_, k) => tag(x0 + k * colGap - ext / 2 - maxR - 4, (yTop + yBot) / 2, k % 2 === 0 ? "H" : "L", col("--vert")));
+    const nodes = (levels, P, names, cy, below) => levels.forEach((l, k) => {
+      const isNew = k >= 2, stroke = isNew ? col("--accent") : col("--ink");
+      l.forEach((d, i) => {
+        const [x, y] = P[k][i], r = radius(d);
+        s += `<circle cx="${x}" cy="${y}" r="${r}" fill="${col("--panel")}" stroke="${stroke}" stroke-width="${isNew ? 2.4 : 1.6}"${isNew ? ' stroke-dasharray="5 3"' : ""}/>`;
+        s += `<text x="${x}" y="${y + 5}" font-size="14" font-weight="600" text-anchor="middle" fill="${col("--ink")}">${d}</text>`;
+      });
+      const ly = below ? cy + ext / 2 + maxR + labelSpace : cy - ext / 2 - maxR - labelSpace + 12;
+      s += `<text x="${x0 + k * colGap + ext / 2 + maxR}" y="${ly}" font-size="18" font-weight="700" text-anchor="end" font-family="Space Grotesk, system-ui, sans-serif" fill="${isNew ? col("--accent") : col("--ink")}">${names(k)}</text>`;
+    });
+    nodes(bot, pBot, botName, yBot, true);
+    nodes(top, pTop, topName, yTop, false);
+    return s + "</svg>";
+  }
+
+  const keyHTML = () => `<div class=key>
+    <span><svg width="34" height="10"><line x1="0" y1="5" x2="34" y2="5" stroke="var(--edge)" stroke-width="2"/></svg>horizontal inclusions (G, K)</span>
+    <span><svg width="34" height="10"><line x1="0" y1="5" x2="34" y2="5" stroke="var(--vert)" stroke-width="2" stroke-dasharray="6 4"/></svg>vertical inclusions (H, L)</span>
+    <span><svg width="22" height="22"><circle cx="11" cy="11" r="8" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 2.5"/></svg>from the basic construction</span></div>`;
+
+  let last = null;
+  function render() {
+    const out = $("out");
+    try {
+      const res = compute();
+      last = res;
+      const { bot, top, sym, notes } = res;
+      let h = "<h2>Bratteli diagram</h2>";
+      h += `<p class=note>Each vertex is a full matrix summand, labeled by its size, and each algebra's summands lie along a diagonal. More than four parallel edges are drawn as one edge labeled ×k.</p>`;
+      h += keyHTML() + `<div class=diagram>${drawSVG(res)}</div>`;
+
+      h += "<h2>Checks</h2>";
+      h += `<p class=check><span class=ok>✓ GL = HK.</span> <span class=note>Both routes from A to D embed A the same way, so this is a square of inclusions.</span></p>`;
+      h += `<div class=mats><div>GL = HK${matHTML(res.GL)}</div></div>`;
+      h += sym
+        ? `<p class=check><span class=ok>✓ GᵀH = LKᵀ.</span> <span class=note>Consistent with a nondegenerate commuting square, and the basic construction extends it.</span></p>`
+        : `<p class=check><span class=bad>✗ GᵀH ≠ LKᵀ.</span> <span class=note>No nondegenerate commuting square has this Bratteli diagram. A degenerate one still might.</span></p>`;
+      h += `<div class=mats><div>GᵀH${matHTML(res.GtH)}</div><div>LKᵀ${matHTML(res.LKt)}</div></div>`;
+      if (sym) h += `<p class=note>These checks only look at the Bratteli diagram. Whether the algebras actually form a commuting square depends on how they sit inside D (see How it works).</p>`;
+
+      h += "<h2>The algebras</h2>";
+      const line = (name, l, extra) => `<p><strong>${name}</strong> ${extra}≅ <span class=alg>${algName(l)}</span> <span class=note>· dimension ${l.reduce((s, d) => s + d * d, 0n)}</span></p>`;
+      bot.forEach((l, k) => {
+        h += line(topName(k), top[k], k >= 2 ? "= ⟨" + topName(k - 1) + ", e⟩ " : "");
+        h += line(botName(k), l, k >= 2 ? "= ⟨" + botName(k - 1) + ", e⟩ " : "");
+      });
+
+      h += "<h2>Inclusion matrices</h2><div class=mats>";
+      [["G", "A ⊂ B", res.G], ["H", "A ⊂ C", res.H], ["K", "C ⊂ D", res.K], ["L", "B ⊂ D", res.L]].forEach(([n, w, M]) => {
+        h += `<div>${n} · ${w} · ‖${n}‖² = ${normSq(M).toFixed(4).replace(/\.?0+$/, "")}${matHTML(M)}</div>`;
+      });
+      h += "</div>";
+      if (notes.length) h += `<p class=note>${notes.map(esc).join(" ")}</p>`;
+      out.innerHTML = h;
+      $("actions").hidden = false;
+      saveURL();
+    } catch (e) {
+      last = null;
+      $("actions").hidden = true;
+      if (e && e.square) {
+        out.innerHTML = `<p class=err>✗ GL ≠ HK, so these four inclusions don't form a square: going through B and going through C embed A in D differently.</p>
+          <div class=mats><div>GL${matHTML(e.GL)}</div><div>HK${matHTML(e.HK)}</div></div>`;
+      } else out.innerHTML = `<p class=err>${esc(e.message || e)}</p>`;
+    }
+  }
+
+  function saveURL() {
+    const q = new URLSearchParams();
+    FIELDS.forEach(f => q.set(f, $(f).value.trim().split(/\n+/).join(";")));
+    q.set("n", $("depth").value);
+    history.replaceState(null, "", "?" + q.toString());
+  }
+
+  function load(p) {
+    FIELDS.forEach(f => ($(f).value = (p[f] || "").split(";").join("\n")));
+    if (p.n) $("depth").value = p.n;
+    render();
+  }
+
+  PRESETS.forEach(p => {
+    const btn = document.createElement("button");
+    btn.type = "button"; btn.textContent = p.name;
+    btn.onclick = () => load({ ...p, n: $("depth").value });
+    $("presets").appendChild(btn);
+  });
+  FIELDS.forEach(id => $(id).addEventListener("input", render));
+  $("depth").addEventListener("change", render);
+  new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+
+  $("svgdl").onclick = () => {
+    if (!last) return;
+    const url = URL.createObjectURL(new Blob([drawSVG(last)], { type: "image/svg+xml" }));
+    const a = Object.assign(document.createElement("a"), { href: url, download: "commuting-square.svg" });
+    a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+  $("copy").onclick = async () => {
+    try { await navigator.clipboard.writeText(location.href); $("copy").textContent = "Copied"; }
+    catch (e) { $("copy").textContent = "Copy failed"; }
+    setTimeout(() => ($("copy").textContent = "Copy link"), 1500);
+  };
+
+  const q = new URLSearchParams(location.search);
+  if (q.has("mG")) {
+    const p = {};
+    FIELDS.forEach(f => (p[f] = q.get(f) || ""));
+    p.n = ["0", "1", "2", "3"].includes(q.get("n")) ? q.get("n") : "0";
+    load(p);
+  } else load({ ...PRESETS[1], n: "1" });
+})();
+</script>
+</body>
+</html>

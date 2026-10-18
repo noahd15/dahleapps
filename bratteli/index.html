@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Basic Construction · Bratteli Diagrams</title>
+<meta name="description" content="Enter an inclusion of finite-dimensional C*-algebras A ⊂ B with its inclusion matrix, and get the Bratteli diagram of the Jones basic construction A ⊂ B ⊂ ⟨B, e_A⟩.">
+<link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/page.css">
+<script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<style>
+  :root { --accent: #7a4fd0; --edge: #8a847a; --err: #b3261e; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --accent: #a585ee; --edge: #6f6a63; --err: #f2b8b5; } }
+  :root[data-theme="dark"] { --accent: #a585ee; --edge: #6f6a63; --err: #f2b8b5; }
+  .top, main, footer { max-width: 880px; }
+  label { display: block; font-weight: 600; font-size: 15px; color: var(--ink); margin: 18px 0 6px; }
+  label span { font-weight: 400; color: var(--muted); }
+  input[type=text], textarea, select { width: 100%; font: 16px/1.4 ui-monospace, "SF Mono", Menlo, monospace; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; }
+  textarea { min-height: 96px; resize: vertical; }
+  input:focus, textarea:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
+  @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
+  .row { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; margin-top: 10px; font-size: 15px; color: var(--muted); }
+  .row label { display: inline-flex; gap: 6px; align-items: center; margin: 0; font-weight: 400; color: var(--muted); }
+  .row select { width: auto; }
+  .presets { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 4px; }
+  .presets button, .btn { cursor: pointer; border: 0; font: 600 14px Inter, system-ui, sans-serif; }
+  .presets button { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
+  .presets button:hover { border-color: var(--accent); }
+  .err { color: var(--err); font-weight: 600; }
+  .note { font-size: 14px; }
+  .diagram { overflow-x: auto; margin: 10px -8px 0; padding: 0 8px; }
+  .diagram svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+  .out p { margin: 6px 0; }
+  .alg { color: var(--ink); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 15px; }
+  table.mat { border-collapse: collapse; font: 14px ui-monospace, Menlo, monospace; color: var(--ink); margin: 4px 0 10px; }
+  table.mat td { padding: 2px 9px; text-align: right; border-left: 0; }
+  table.mat td:first-child { border-left: 2px solid var(--muted); }
+  table.mat td:last-child { border-right: 2px solid var(--muted); }
+  .mats { display: flex; flex-wrap: wrap; gap: 8px 28px; }
+  .mats div { font-size: 14px; color: var(--muted); }
+  details { margin-top: 26px; }
+  summary { cursor: pointer; font: 700 17px "Space Grotesk", system-ui, sans-serif; color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="top"><a href="/"><img src="/img/logo.svg" alt="">Dahle Apps</a></div>
+<main>
+  <h1>Basic construction</h1>
+  <p class="kind">Bratteli diagrams for A ⊂ B ⊂ ⟨B, e<sub>A</sub>⟩</p>
+  <p>Give a unital inclusion of finite-dimensional C*-algebras A ⊂ B and its inclusion matrix G. The page draws the Bratteli diagram of A ⊂ B ⊂ B<sub>1</sub>, where B<sub>1</sub> = ⟨B, e<sub>A</sub>⟩ is the Jones basic construction, and can keep iterating the tower.</p>
+
+  <div class="card">
+    <div class="presets" id="presets"></div>
+    <div class="grid">
+      <div>
+        <label for="a">A <span>· summand sizes, e.g. 2, 1 or M₂ ⊕ ℂ</span></label>
+        <input type="text" id="a" spellcheck="false" autocomplete="off">
+      </div>
+      <div>
+        <label for="b">B <span>· leave blank to compute it from A and G</span></label>
+        <input type="text" id="b" spellcheck="false" autocomplete="off">
+      </div>
+    </div>
+    <label for="g">Inclusion matrix G <span>· one row per line, entries separated by spaces or commas</span></label>
+    <textarea id="g" spellcheck="false"></textarea>
+    <div class="row">
+      <label><input type="radio" name="orient" value="A" checked> rows index summands of A (b = Gᵀa)</label>
+      <label><input type="radio" name="orient" value="B"> rows index summands of B (b = Ga)</label>
+    </div>
+    <div class="row">
+      <label>Show the tower up to <select id="depth">
+        <option value="1">B₁</option><option value="2">B₂</option><option value="3">B₃</option><option value="4">B₄</option>
+      </select></label>
+    </div>
+    <div class="out" id="out"></div>
+    <div class="links" id="actions" hidden>
+      <button class="btn" id="svgdl">Download SVG</button>
+      <button class="btn ghost" id="copy">Copy link</button>
+    </div>
+  </div>
+
+  <details>
+    <summary>How it works</summary>
+    <p>Write A = ⊕<sub>i</sub> M<sub>a<sub>i</sub></sub> and B = ⊕<sub>j</sub> M<sub>b<sub>j</sub></sub>, and let G<sub>ij</sub> be the number of times the i-th summand of A sits inside the j-th summand of B. The inclusion is unital exactly when b = Gᵀa, which the page checks.</p>
+    <p>The basic construction B<sub>1</sub> = ⟨B, e<sub>A</sub>⟩ ≅ End<sub>A</sub>(B) is Morita equivalent to A, so its summands are indexed by the summands of A. The inclusion B ⊂ B<sub>1</sub> has matrix Gᵀ: the Bratteli diagram of B ⊂ B<sub>1</sub> is the reflection of the diagram of A ⊂ B. The sizes of B<sub>1</sub> are c = Gb, so c<sub>i</sub> = Σ<sub>j</sub> G<sub>ij</sub> b<sub>j</sub>.</p>
+    <p>Iterating, B<sub>k+1</sub> = ⟨B<sub>k</sub>, e<sub>k</sub>⟩ and the inclusion matrices alternate G, Gᵀ, G, … When the diagram of A ⊂ B is connected, the Markov trace is unique and the Jones index is [B : A] = ‖G‖², the square of the largest singular value of G. The same index holds at every step of the tower.</p>
+  </details>
+</main>
+<footer>Dahle Apps · <a href="mailto:dahle.apps@gmail.com">dahle.apps@gmail.com</a></footer>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const SUB = "₀₁₂₃₄₅₆₇₈₉";
+  const sub = n => String(n).replace(/\d/g, d => SUB[d]);
+  const levelName = k => k === 0 ? "A" : k === 1 ? "B" : "B" + sub(k - 1);
+  const algName = dims => dims.map(d => d === 1n ? "ℂ" : "M" + sub(d)).join(" ⊕ ");
+
+  const PRESETS = [
+    { name: "ℂ ⊂ M₂", a: "1", b: "2", g: "2" },
+    { name: "ℂ² ⊂ M₂", a: "1, 1", b: "2", g: "1\n1" },
+    { name: "Golden ratio", a: "1, 1", b: "2, 1", g: "1 1\n1 0" },
+    { name: "ℂS₂ ⊂ ℂS₃", a: "1, 1", b: "1, 1, 2", g: "1 0 1\n0 1 1" },
+    { name: "M₂ ⊕ ℂ ⊂ M₃ ⊕ M₅", a: "M2 ⊕ C", b: "M3 ⊕ M5", g: "1 2\n1 1" },
+  ];
+
+  function parseAlg(s) {
+    let t = s.replace(/M_?\{?(\d+)\}?\s*(\(\s*(C|ℂ)\s*\))?/g, " $1 ").replace(/ℂ|\bC\b/g, " 1 ");
+    const left = t.replace(/[\d\s,;⊕+()\[\]]/g, "");
+    if (left) throw new Error("Couldn't read \"" + s.trim() + "\". Use sizes like 2, 1 or M₂ ⊕ ℂ.");
+    const dims = t.split(/[^\d]+/).filter(Boolean).map(x => BigInt(x));
+    if (dims.some(d => d === 0n)) throw new Error("Summand sizes must be at least 1.");
+    return dims;
+  }
+
+  function parseMatrix(s) {
+    const rows = s.replace(/[\[\]()]/g, " ").split(/\n|;/).map(r => r.trim()).filter(Boolean)
+      .map(r => r.split(/[\s,]+/).filter(Boolean));
+    if (!rows.length) throw new Error("Enter the inclusion matrix G.");
+    for (const r of rows) for (const x of r) if (!/^\d+$/.test(x)) throw new Error("Entries of G must be non-negative integers (found \"" + x + "\").");
+    const w = rows[0].length;
+    if (rows.some(r => r.length !== w)) throw new Error("Every row of G needs the same number of entries.");
+    return rows.map(r => r.map(Number));
+  }
+
+  const T = M => M[0].map((_, j) => M.map(r => r[j]));
+  // dims of the upper level from the lower level through M (rows = lower summands)
+  const push = (M, lower) => M[0].map((_, j) => M.reduce((s, r, i) => s + BigInt(r[j]) * lower[i], 0n));
+
+  function normSq(G) {
+    const GtG = T(G).map(r => T(G).map(c => r.reduce((s, x, k) => s + x * c[k], 0)));
+    let v = GtG.map(() => 1), lam = 0;
+    for (let it = 0; it < 2000; it++) {
+      const w = GtG.map(r => r.reduce((s, x, k) => s + x * v[k], 0));
+      const n = Math.hypot(...w);
+      if (!n) return 0;
+      v = w.map(x => x / n);
+      if (Math.abs(n - lam) < 1e-13 * n) { lam = n; break; }
+      lam = n;
+    }
+    return lam;
+  }
+
+  function connected(G) {
+    const m = G.length, n = G[0].length, p = [...Array(m + n).keys()];
+    const f = x => p[x] === x ? x : (p[x] = f(p[x]));
+    G.forEach((r, i) => r.forEach((x, j) => { if (x) p[f(i)] = f(m + j); }));
+    return new Set(p.map((_, i) => f(i))).size === 1;
+  }
+
+  function compute() {
+    const notes = [];
+    const a = parseAlg($("a").value);
+    if (!a.length) throw new Error("Enter the summand sizes of A.");
+    const bText = $("b").value.trim();
+    const bIn = bText ? parseAlg(bText) : null;
+    let G = parseMatrix($("g").value);
+    const rowsA = document.querySelector("input[name=orient]:checked").value === "A";
+    if (!rowsA) G = T(G);
+    const n = bIn ? bIn.length : null;
+    const fits = M => M.length === a.length && (n === null || M[0].length === n);
+    if (!fits(G)) {
+      if (fits(T(G))) { G = T(G); notes.push("G's shape only fits the other convention, so it was read transposed."); }
+      else throw new Error("G is " + G.length + "×" + G[0].length + ", but A has " + a.length + " summand" + (a.length > 1 ? "s" : "") + (n !== null ? " and B has " + n : "") + ".");
+    }
+    G.forEach((r, i) => { if (r.every(x => !x)) throw new Error("Row " + (i + 1) + " of G is zero: summand " + (i + 1) + " of A would map to 0, so this isn't an inclusion."); });
+    const b = push(G, a);
+    if (b.some(x => x === 0n)) throw new Error("Summand " + (b.findIndex(x => x === 0n) + 1) + " of B gets nothing from A, so the inclusion isn't unital.");
+    if (bIn && bIn.some((x, j) => x !== b[j])) {
+      throw new Error("These don't match: the unit of A would land in " + algName(b) + ", not " + algName(bIn) + ". This page needs a unital inclusion, so b = Gᵀa.");
+    }
+    if (!bIn) notes.push("B computed from A and G.");
+
+    const depth = +$("depth").value;
+    const levels = [a, b], mats = [G];
+    for (let k = 0; k < depth; k++) {
+      const M = k % 2 === 0 ? T(G) : G;
+      mats.push(M);
+      levels.push(push(M, levels[levels.length - 1]));
+    }
+    return { G, levels, mats, notes, idx: normSq(G), conn: connected(G) };
+  }
+
+  function matHTML(M) {
+    return "<table class=mat>" + M.map(r => "<tr>" + r.map(x => "<td>" + x + "</td>").join("") + "</tr>").join("") + "</table>";
+  }
+
+  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  function drawSVG(res) {
+    const { levels, mats } = res;
+    const ns = "http://www.w3.org/2000/svg";
+    const css = getComputedStyle(document.documentElement);
+    const col = v => css.getPropertyValue(v).trim();
+    const maxCount = Math.max(...levels.map(l => l.length));
+    const radius = d => Math.max(17, 7 + String(d).length * 4.6);
+    const maxR = Math.max(...levels.flat().map(radius));
+    const gap = Math.max(76, 2 * maxR + 26), left = 70, rowH = 118, top = 34;
+    const W = Math.max(420, left + maxCount * gap + 20), H = top * 2 + (levels.length - 1) * rowH;
+    const pos = levels.map((l, k) => {
+      const span = (l.length - 1) * gap, x0 = left + (W - left - 20 - span) / 2;
+      return l.map((_, i) => [x0 + i * gap, top + k * rowH]);
+    });
+    const newLevel = 2;
+    let s = `<svg xmlns="${ns}" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" font-family="Inter, system-ui, sans-serif" role="img" aria-label="Bratteli diagram">`;
+    s += `<rect width="${W}" height="${H}" fill="${col("--panel")}"/>`;
+    mats.forEach((M, k) => {
+      const stroke = k + 1 >= newLevel ? col("--accent") : col("--edge");
+      M.forEach((r, i) => r.forEach((mult, j) => {
+        if (!mult) return;
+        const [x1, y1] = pos[k][i], [x2, y2] = pos[k + 1][j];
+        const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), px = -dy / L, py = dx / L;
+        const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+        if (mult <= 4) {
+          for (let t = 0; t < mult; t++) {
+            const o = (t - (mult - 1) / 2) * 13;
+            s += `<path d="M${x1} ${y1} Q${mx + px * o} ${my + py * o} ${x2} ${y2}" fill="none" stroke="${stroke}" stroke-width="1.6"/>`;
+          }
+        } else {
+          s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${stroke}" stroke-width="3"/>`;
+          const lbl = "×" + mult, w = 9 + lbl.length * 7.5;
+          s += `<rect x="${mx - w / 2}" y="${my - 10}" width="${w}" height="20" rx="6" fill="${col("--panel")}" stroke="${stroke}"/>`;
+          s += `<text x="${mx}" y="${my + 4.5}" font-size="13" font-weight="600" text-anchor="middle" fill="${col("--ink")}">${lbl}</text>`;
+        }
+      }));
+    });
+    levels.forEach((l, k) => {
+      const isNew = k >= newLevel;
+      s += `<text x="16" y="${top + k * rowH + 6}" font-size="17" font-weight="700" font-family="Space Grotesk, system-ui, sans-serif" fill="${isNew ? col("--accent") : col("--ink")}">${levelName(k)}</text>`;
+      l.forEach((d, i) => {
+        const [x, y] = pos[k][i], r = radius(d);
+        s += `<circle cx="${x}" cy="${y}" r="${r}" fill="${col("--panel")}" stroke="${isNew ? col("--accent") : col("--ink")}" stroke-width="${isNew ? 2.4 : 1.6}"${isNew ? ' stroke-dasharray="5 3"' : ""}/>`;
+        s += `<text x="${x}" y="${y + 5}" font-size="14" font-weight="600" text-anchor="middle" fill="${col("--ink")}">${d}</text>`;
+      });
+    });
+    return s + "</svg>";
+  }
+
+  let last = null;
+  function render() {
+    const out = $("out");
+    try {
+      const res = compute();
+      last = res;
+      const { levels, mats, notes, idx, conn } = res;
+      let h = "<h2>Bratteli diagram</h2>";
+      h += `<p class=note>Each vertex is a full matrix summand, labeled by its size. Edges show multiplicity; more than four parallel edges are drawn as one edge labeled ×k. New levels from the basic construction have dashed vertices.</p>`;
+      h += `<div class=diagram>${drawSVG(res)}</div>`;
+      h += "<h2>The tower</h2>";
+      levels.forEach((l, k) => {
+        const dim = l.reduce((s, d) => s + d * d, 0n);
+        h += `<p><strong>${levelName(k)}</strong> ${k >= 2 ? "= ⟨" + levelName(k - 1) + ", e" + (k === 2 ? "<sub>A</sub>" : sub(k - 2)) + "⟩ " : ""}≅ <span class=alg>${algName(l)}</span> <span class=note>· dimension ${dim}</span></p>`;
+      });
+      h += "<h2>Inclusion matrices</h2><div class=mats>";
+      mats.forEach((M, k) => { h += `<div>${levelName(k)} ⊂ ${levelName(k + 1)}${k === 0 ? " (G)" : k % 2 ? " (Gᵀ)" : " (G)"}${matHTML(M)}</div>`; });
+      h += "</div>";
+      h += "<h2>Index</h2>";
+      const v = idx.toFixed(6).replace(/\.?0+$/, "");
+      h += conn
+        ? `<p>The diagram of A ⊂ B is connected, so the Markov trace is unique and [B : A] = ‖G‖² = <strong>${v}</strong>. Every inclusion in the tower has this index.</p>`
+        : `<p>The diagram of A ⊂ B is not connected, so there is no unique Markov trace. For reference, ‖G‖² = <strong>${v}</strong>.</p>`;
+      if (notes.length) h += `<p class=note>${notes.map(esc).join(" ")}</p>`;
+      out.innerHTML = h;
+      $("actions").hidden = false;
+      saveURL();
+    } catch (e) {
+      last = null;
+      out.innerHTML = `<p class=err>${esc(e.message)}</p>`;
+      $("actions").hidden = true;
+    }
+  }
+
+  function saveURL() {
+    const q = new URLSearchParams({ a: $("a").value, b: $("b").value, g: $("g").value.trim().split(/\n+/).join(";"),
+      rows: document.querySelector("input[name=orient]:checked").value, n: $("depth").value });
+    history.replaceState(null, "", "?" + q.toString());
+  }
+
+  function load(p) {
+    $("a").value = p.a; $("b").value = p.b; $("g").value = p.g;
+    document.querySelector(`input[name=orient][value=${p.rows || "A"}]`).checked = true;
+    if (p.n) $("depth").value = p.n;
+    render();
+  }
+
+  PRESETS.forEach(p => {
+    const btn = document.createElement("button");
+    btn.type = "button"; btn.textContent = p.name;
+    btn.onclick = () => load({ ...p, rows: "A", n: $("depth").value });
+    $("presets").appendChild(btn);
+  });
+
+  ["a", "b", "g"].forEach(id => $(id).addEventListener("input", render));
+  document.querySelectorAll("input[name=orient]").forEach(r => r.addEventListener("change", render));
+  $("depth").addEventListener("change", render);
+  new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+
+  $("svgdl").onclick = () => {
+    if (!last) return;
+    const url = URL.createObjectURL(new Blob([drawSVG(last)], { type: "image/svg+xml" }));
+    const a = Object.assign(document.createElement("a"), { href: url, download: "bratteli.svg" });
+    a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+  $("copy").onclick = async () => {
+    try { await navigator.clipboard.writeText(location.href); $("copy").textContent = "Copied"; }
+    catch (e) { $("copy").textContent = "Copy failed"; }
+    setTimeout(() => ($("copy").textContent = "Copy link"), 1500);
+  };
+
+  const q = new URLSearchParams(location.search);
+  if (q.has("g")) load({ a: q.get("a") || "", b: q.get("b") || "", g: (q.get("g") || "").split(";").join("\n"), rows: q.get("rows") === "B" ? "B" : "A", n: ["1","2","3","4"].includes(q.get("n")) ? q.get("n") : "1" });
+  else load({ ...PRESETS[2], rows: "A", n: "1" });
+})();
+</script>
+</body>
+</html>

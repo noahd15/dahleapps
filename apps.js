@@ -16,6 +16,7 @@ window.APPS = [
     ],
     shots: [
       ["bay4-1.jpg", "Clocking in"],
+      ["bay4-6.jpg", "Your inspection desk"],
       ["bay4-2.jpg", "Untangling a blueprint"],
       ["bay4-3.jpg", "Proving a board can't be laid flat"],
       ["bay4-4.jpg", "Approve the wrong one and it melts"],

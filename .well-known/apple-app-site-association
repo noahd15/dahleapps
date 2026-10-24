@@ -2,12 +2,37 @@
   "applinks": {
     "details": [
       {
-        "appIDs": ["V6F87F45RS.com.noahdahle.settable"],
-        "components": [{ "/": "/findaset/join*", "comment": "Find a Set! match links" }]
+        "appIDs": [
+          "V6F87F45RS.com.noahdahle.settable"
+        ],
+        "components": [
+          {
+            "/": "/findaset/join*",
+            "comment": "Find a Set! match links"
+          }
+        ]
       },
       {
-        "appIDs": ["V6F87F45RS.com.noahdahle.drill"],
-        "components": [{ "/": "/s/*", "comment": "Dialed In shared sets (the set is in the #fragment)" }]
+        "appIDs": [
+          "V6F87F45RS.com.noahdahle.drill"
+        ],
+        "components": [
+          {
+            "/": "/s/*",
+            "comment": "Dialed In shared sets (the set is in the #fragment)"
+          }
+        ]
+      },
+      {
+        "appIDs": [
+          "V6F87F45RS.com.noahdahle.mahjong"
+        ],
+        "components": [
+          {
+            "/": "/mahj/card*",
+            "comment": "Mahj with Friends shared cards (the card is in the #fragment)"
+          }
+        ]
       }
     ]
   }

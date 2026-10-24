@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mahj with Friends · Shared card</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/page.css">
+<script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<style>
+  :root { --accent: #8c2f3c; }
+  .steps { margin: 14px 0 0; padding-left: 20px; }
+  .steps li { margin: 6px 0; }
+  .error { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="top"><a href="/"><img src="/img/logo.svg" alt="">Dahle Apps</a></div>
+<main>
+  <div class="head"><img src="/img/mahj-icon.png" alt=""><div><h1 id="title">Shared card</h1><p class="kind" id="kind">Mahj with Friends</p></div></div>
+  <div class="card">
+    <p id="intro">A friend shared a mahjong card with you. If you have Mahj with Friends, this link opens it in the app, ready to add.</p>
+    <div class="links">
+      <a class="btn" id="open" href="#">Open in Mahj with Friends</a>
+      <a class="btn ghost" href="https://testflight.apple.com/join/2aYE6k2w" target="_blank" rel="noopener">Get the app</a>
+    </div>
+    <ol class="steps">
+      <li>No app yet? Tap <b>Get the app</b>, install TestFlight and then Mahj with Friends.</li>
+      <li>Come back to this link and tap <b>Open in Mahj with Friends</b>.</li>
+    </ol>
+    <p class="small">The card travels inside the link itself, after the #, so it never reaches this website's server.</p>
+  </div>
+</main>
+<footer>Dahle Apps · <a href="mailto:dahle.apps@gmail.com">dahle.apps@gmail.com</a></footer>
+<script>
+// Opening the same page doesn't hand off to the app, so the button uses the app's own link scheme.
+const hash = location.hash || "";
+document.getElementById("open").href = "mahjwf://card" + hash;
+if (hash.length < 4) {
+  document.getElementById("intro").textContent = "This page opens mahjong cards shared from Mahj with Friends. The link you followed has no card in it.";
+  document.getElementById("intro").className = "error";
+}
+</script>
+</body>
+</html>

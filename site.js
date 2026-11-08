@@ -165,7 +165,7 @@ function Schedule() {
       ${planned.map((a) => html`<li key=${a.id} style=${{ "--accent": a.accent }}>
         <a href=${"#" + a.id}>
           <img src=${"img/" + a.id + "-icon.png"} alt="" width="44" height="44" />
-          <div><b>${a.name}</b><span>${a.release}</span></div>
+          <div><b>${a.name}</b><span>${a.appStore ? "Out now" : a.release}</span></div>
         </a>
       </li>`)}
     </ol>
@@ -216,12 +216,13 @@ function AppCard({ app, flip }) {
         <div><h2>${app.name}</h2><p class="tag">${app.tag}</p></div>
       </div>
       <span class="under">${app.tool ? app.under : (app.course ? "Covers" : "Underneath") + ": " + app.under}</span>
-      ${app.release && html`<span class="when">On the App Store: ${app.release.replace(/ 20\d\d$/, "")}</span>`}
+      ${app.release && html`<span class="when">${app.appStore ? "On the App Store now" : "On the App Store: " + app.release.replace(/ 20\d\d$/, "")}</span>`}
       <p>${app.blurb}</p>
       <ul>${app.points.map((p) => html`<li key=${p}>${p}</li>`)}</ul>
       ${app.credit && html`<p class="credit">${app.credit}</p>`}
       <div class="meta">
-        ${app.testflight && html`<a class="btn" href=${app.testflight} target="_blank" rel="noopener">Join the TestFlight beta</a>`}
+        ${app.appStore && html`<a class="btn" href=${app.appStore} target="_blank" rel="noopener">Get it on the App Store</a>`}
+        ${app.testflight && !app.appStore && html`<a class="btn" href=${app.testflight} target="_blank" rel="noopener">Join the TestFlight beta</a>`}
         ${app.support && html`<a class="note" href=${app.support} target="_blank" rel="noopener">Support and privacy</a>`}
         ${app.invite && html`<span class="note">In TestFlight, invite only for now.
           <a href=${"mailto:" + MAIL + "?subject=" + encodeURIComponent(app.invite + " beta")}> Ask to join</a></span>`}

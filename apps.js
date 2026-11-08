@@ -1,5 +1,6 @@
 // The apps on the home page. Screenshots live in img/<id>-<n>.jpg.
 // release: when it's planned for the App Store; releaseOrder sorts the schedule.
+// appStore: its App Store link, once it's out.
 window.APPS = [
   {
     id: "bay4",
@@ -74,6 +75,7 @@ window.APPS = [
     ],
     release: "Early November 2026",
     releaseOrder: 2,
+    appStore: "https://apps.apple.com/us/app/sulks-puzzles/id6822973854",
     testflight: "https://testflight.apple.com/join/YjceU53E",
     support: "sulks/",
   },

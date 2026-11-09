@@ -117,7 +117,7 @@ window.APPS = [
       "Import PDFs, photos of notes, pasted text, or a Quizlet or Anki deck.",
       "Every AI-written card is checked against your notes, with a page reference.",
       "Flashcards, Learn, Test, Match and scored practice exams, timed to your exam dates.",
-      "Runs on Apple Intelligence on your iPhone, or with your own Claude or OpenAI key.",
+      "Runs on Apple Intelligence on your iPhone, or with your own Claude, OpenAI or Gemini key.",
       "Studying is free. Pro, for AI writing and checking, is a one-time $9.99, with no ads or subscription.",
     ],
     shots: [

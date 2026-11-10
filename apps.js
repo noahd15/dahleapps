@@ -103,6 +103,7 @@ window.APPS = [
     ],
     release: "Coming soon",
     releaseOrder: 4.5,
+    appStore: "https://apps.apple.com/app/id6825881017",
     testflight: "https://testflight.apple.com/join/2aYE6k2w",
     support: "mahj/",
   },

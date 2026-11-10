@@ -40,7 +40,7 @@ window.APPS = [
     points: [
       "Classic, Junior, Mega, Blitz and a Daily puzzle each day.",
       "Play solo, against the computer, or with friends in the same room.",
-      "Online games: host a game and share the code or link.",
+      "Online games with up to four players: host a game and share the code or link.",
       "Game Center achievements and leaderboards.",
       "Free, with no in-app purchases or ads.",
     ],

@@ -40,7 +40,7 @@ window.APPS = [
     points: [
       "Classic, Junior, Mega, Blitz and a Daily puzzle each day.",
       "Play solo, against the computer, or with friends in the same room.",
-      "Online games with up to four players: host a game and share the code or link.",
+      "Online games: host a game and share the code or link.",
       "Game Center achievements and leaderboards.",
       "Free, with no in-app purchases or ads.",
     ],
@@ -51,6 +51,7 @@ window.APPS = [
     ],
     release: "Late October 2026",
     releaseOrder: 1,
+    appStore: "https://apps.apple.com/us/app/find-a-set-trio-matching/id6822973769",
     testflight: "https://testflight.apple.com/join/4XuMSPgJ",
     support: "findaset/",
   },

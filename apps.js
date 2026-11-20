@@ -154,6 +154,7 @@ window.APPS = [
       ["dialedin-3.jpg", "Bring in slides, notes or a Quizlet set"],
       ["dialedin-4.jpg", "A practice exam, scored by topic"],
     ],
+    appStore: "https://apps.apple.com/us/app/dialed-in-ai-assisted-study/id6823401969",
     testflight: "https://testflight.apple.com/join/WRBbQcuz",
     support: "dialedin/",
     release: "Mid-November 2026",

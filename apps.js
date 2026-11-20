@@ -85,7 +85,7 @@ window.APPS = [
     under: "Card game",
     tool: true,
     question: "American mahjong, with friends at the table or far away.",
-    name: "Mahj with Friends",
+    name: "Mahj",
     tag: "American mahjong",
     accent: "#8a3a4e",
     blurb: "American mahjong on your phone: the Charleston, calls, joker swaps and a hand card. Play against computer players at three skill levels, or with friends, either at the same table or from anywhere.",
@@ -94,7 +94,7 @@ window.APPS = [
       "Comes with its own 2026 card. With Mahj Pro, add a card you own by typing its hands or taking a photo, and share cards with friends.",
       "Friends at the same table connect nearby with no account; friends far away join through Game Center. Computer players fill empty seats.",
       "Hints for new players: the closest hand, which tiles to keep, and when a joker is free to take. Follow a hand you pick, and undo a move against the computer.",
-      "Free to play, including every game with friends. Mahj Pro, a one-time $4.99, adds your own cards, the Hard computer, stats and history, and more tile sets and table colors. No ads or subscription.",
+      "Free to play, including every game with friends. Mahj Pro, a one-time $2.99, adds your own cards, the Hard computer, stats and history, and more tile sets and table colors. No ads or subscription.",
     ],
     shots: [
       ["mahj-1.jpg", "Your turn at the table"],

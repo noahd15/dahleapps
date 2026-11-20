@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mahj with Friends · Shared card</title>
+<title>Mahj · Shared card</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
@@ -20,16 +20,16 @@
 <body>
 <div class="top"><a href="/"><img src="/img/logo.svg" alt="">Dahle Apps</a></div>
 <main>
-  <div class="head"><img src="/img/mahj-icon.png" alt=""><div><h1 id="title">Shared card</h1><p class="kind" id="kind">Mahj with Friends</p></div></div>
+  <div class="head"><img src="/img/mahj-icon.png" alt=""><div><h1 id="title">Shared card</h1><p class="kind" id="kind">Mahj</p></div></div>
   <div class="card">
-    <p id="intro">A friend shared a mahjong card with you. If you have Mahj with Friends, this link opens it in the app, ready to add.</p>
+    <p id="intro">A friend shared a mahjong card with you. If you have Mahj, this link opens it in the app, ready to add.</p>
     <div class="links">
-      <a class="btn" id="open" href="#">Open in Mahj with Friends</a>
-      <a class="btn ghost" href="https://testflight.apple.com/join/2aYE6k2w" target="_blank" rel="noopener">Get the app</a>
+      <a class="btn" id="open" href="#">Open in Mahj</a>
+      <a class="btn ghost" href="https://apps.apple.com/app/id6825881017" target="_blank" rel="noopener">Get the app</a>
     </div>
     <ol class="steps">
-      <li>No app yet? Tap <b>Get the app</b>, install TestFlight and then Mahj with Friends.</li>
-      <li>Come back to this link and tap <b>Open in Mahj with Friends</b>.</li>
+      <li>No app yet? Tap <b>Get the app</b> and install Mahj from the App Store.</li>
+      <li>Come back to this link and tap <b>Open in Mahj</b>.</li>
     </ol>
     <p class="small">The card travels inside the link itself, after the #, so it never reaches this website's server.</p>
   </div>
@@ -40,7 +40,7 @@
 const hash = location.hash || "";
 document.getElementById("open").href = "mahjwf://card" + hash;
 if (hash.length < 4) {
-  document.getElementById("intro").textContent = "This page opens mahjong cards shared from Mahj with Friends. The link you followed has no card in it.";
+  document.getElementById("intro").textContent = "This page opens mahjong cards shared from Mahj. The link you followed has no card in it.";
   document.getElementById("intro").className = "error";
 }
 </script>

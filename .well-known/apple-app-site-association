@@ -30,7 +30,7 @@
         "components": [
           {
             "/": "/mahj/card*",
-            "comment": "Mahj with Friends shared cards (the card is in the #fragment)"
+            "comment": "Mahj shared cards (the card is in the #fragment)"
           }
         ]
       }
